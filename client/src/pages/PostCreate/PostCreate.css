@@ -10,3 +10,22 @@
 .field label {
     margin-right: 5px;
 }
+
+.field input {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.field section button {
+    margin-right: 15px;
+}
+
+#description {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+#description label {
+    margin-bottom: 5px;
+}

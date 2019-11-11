@@ -14,6 +14,7 @@ const PostCreate = () => {
                 <label>Tags:</label>
                 <section>
                     <input />
+                    <button>Add tag</button>
                     <section className='tags'>
                         <button>Gaming</button>
                         <button>2019</button>
@@ -25,13 +26,14 @@ const PostCreate = () => {
                 <input />
             </section>
             <section id='description'>
-                <label>Description</label>
+                <label>Description (100 characters or less)</label>
                 <textarea />
             </section>
             <section className='field'>
                 <label>Voting Options:</label>
                 <section>
                     <input />
+                    <button>Add option</button>
                     <section className='tags'>
                         <button>League</button>
                         <button>Overwatch</button>
