@@ -1,0 +1,12 @@
+.post-create {
+    margin: 25px 15% 25px 15%;
+}
+
+.field {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.field label {
+    margin-right: 5px;
+}
