@@ -1,4 +1,5 @@
-import createError from "http-errors";
+
+/*import createError from "http-errors";
 import express, { json, urlencoded } from "express";
 import { join } from "path";
 import cookieParser from "cookie-parser";
@@ -6,6 +7,17 @@ import logger from "morgan";
 
 import indexRouter from "./routes/index";
 import pingRouter from "./routes/ping";
+*/
+var createError = require("http-errors");
+var express = require("express");
+var json = express.json;
+var urlencoded = express.urlencoded;
+
+var join = require("path").join;
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
+var indexRouter = require("./routes/index");
+var pingRouter = require("./routes/ping");
 
 var app = express();
 
