@@ -91,8 +91,6 @@ const PostCreate = props => {
                 className={classes.textField}
                 label="Tags"
                 margin="normal" />
-                {/* onChange={event => { setTag(event.target.value) }}
-                value={tag} /> */}
                 <Button
                 className={classes.button}
                 variant="contained"
@@ -127,8 +125,6 @@ const PostCreate = props => {
                 className={classes.textField}
                 label="Voting Option"
                 margin="normal" />
-                {/* onChange={event => { setOption(event.target.value) }}
-                value={option} /> */}
                 <Button
                 className={classes.button}
                 variant="contained"
@@ -141,52 +137,6 @@ const PostCreate = props => {
             <div id='options'></div>
         </form>
     )
-    
-
-    // return (
-    //     <section className='post-create'>
-    //         <h1>Create Post</h1>
-    //         <section className='field'>
-    //             <label>Visibility:</label>
-    //             <input />
-    //         </section>
-    //         <section className='field'>
-    //             <label>Tags:</label>
-    //             <section>
-    //                 <input id='tag-input'
-    //                 onChange={event => { setTag(event.target.value) }}
-    //                 value={tag} />
-    //                 <button onClick={handleClick} >Add tag</button>
-    //                 <section id='tags'>
-    //                     <button>Gaming</button>
-    //                     <button>2019</button>
-    //                 </section>
-    //             </section>
-    //         </section>
-    //         <section className='field'>
-    //             <label>Question:</label>
-    //             <input />
-    //         </section>
-    //         <section id='description'>
-    //             <label>Description (100 characters or less)</label>
-    //             <textarea />
-    //         </section>
-    //         <section className='field'>
-    //             <label>Voting Options:</label>
-    //             <section>
-    //                 <input id='option-input'
-    //                 onChange={event => { setOption(event.target.value) }}
-    //                 value={option} />
-    //                 <button onClick={handleClick} >Add option</button>
-    //                 <section id='options'>
-    //                     <button>League</button>
-    //                     <button>Overwatch</button>
-    //                 </section>
-    //             </section>
-    //         </section>
-    //         <button id='btn-post'>Post</button>
-    //     </section>
-    // )
 }
 
 export default PostCreate
