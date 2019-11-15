@@ -36,26 +36,21 @@ const PostCreate = props => {
     const classes = useStyles();
 
     const [visibility, setVisibility] = React.useState('');
-    const [tags] = useState([])
+    const [tags, setTags] = useState([])
     const [question, setQuestion] = useState('')
     const [description, setDescription] = useState('')
-    const [options] = useState([])
+    const [options, setOptions] = useState([])
 
     const handleChange = event => {
         setVisibility(event.target.value);
     };
 
     const handleClick = event => {
-        event.preventDefault()
         const ref=event.target.textContent.split(' ')[1]
         const input=document.getElementById(`${ref}-input`)
-        const element=document.getElementById(`${ref}s`)
         const { value }=input
-        const toAdd = document.createElement('label')
-        toAdd.textContent=value
-        element.appendChild(toAdd)
-        if (ref === 'tag') tags.push(value)
-        if (ref === 'option') options.push(value)
+        if (ref === 'tag') setTags([...tags, value])
+        if (ref === 'option') setOptions([...options, value])
         input.value=''
     }
 
@@ -101,7 +96,20 @@ const PostCreate = props => {
                         Add tag
                     </Button>
                 </div>
-                <div id='tags'></div>
+                <div id='tags'>
+                    {tags.map(el => {
+                        return (
+                            <Button
+                            key={el}
+                            className={classes.button}
+                            variant="contained"
+                            color="primary"
+                            size="medium" >
+                                {el}
+                            </Button>
+                        )
+                    })}
+                </div>
                 <div className='field'>
                     <TextField
                     id="question"
@@ -135,7 +143,20 @@ const PostCreate = props => {
                         Add option
                     </Button>
                 </div>
-                <div id='options'></div>
+                <div id='options'>
+                {options.map(el => {
+                        return (
+                            <Button
+                            key={el}
+                            className={classes.button}
+                            variant="contained"
+                            color="primary"
+                            size="medium" >
+                                {el}
+                            </Button>
+                        )
+                    })}
+                </div>
             </form>
         </Container>
     )
