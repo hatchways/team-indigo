@@ -1,9 +1,7 @@
 import './PostCreate.css'
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Menu, MenuItem, Button } from '@material-ui/core'
-// import SaveIcon from '@material-ui/icons/Save';
-// import { Menu, MenuItem } from '@material-ui/core/Menu'
+import { TextField, MenuItem, Button } from '@material-ui/core'
 
 const visibilityOptions = [
     {
@@ -24,7 +22,7 @@ const visibilityOptions = [
     textField: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      width: 200,
+      width: 300,
     },
     menu: {
       width: 200,
@@ -37,10 +35,11 @@ const visibilityOptions = [
 const PostCreate = props => {
     const classes = useStyles();
 
-    const [tag, setTag] = useState('')
-    // const [option, setOption] = useState('')
-
-    const [visibility, setVisibility] = React.useState('EUR');
+    const [visibility, setVisibility] = React.useState('');
+    const [tags] = useState([])
+    const [question, setQuestion] = useState('')
+    const [description, setDescription] = useState('')
+    const [options] = useState([])
 
     const handleChange = event => {
         setVisibility(event.target.value);
@@ -49,7 +48,16 @@ const PostCreate = props => {
     const handleClick = event => {
         event.preventDefault()
         const target=event.target
-        console.log(target)
+        const text=target.textContent
+        const ref=text.split(' ')[1]
+        const input=document.getElementById(`${ref}-input`)
+        const element=document.getElementById(`${ref}s`)
+        const { value }=input
+        const toAdd = document.createElement('label')
+        toAdd.textContent=value
+        element.appendChild(toAdd)
+        if (ref === 'tag') tags.push(value)
+        if (ref === 'option') options.push(value)
     }
 
     return (
@@ -58,7 +66,7 @@ const PostCreate = props => {
                 <TextField
                 id="select-visibility"
                 select
-                label="Select Visibility"
+                label="Select Poll Visibility"
                 className={classes.textField}
                 value={visibility}
                 onChange={handleChange}
@@ -67,7 +75,7 @@ const PostCreate = props => {
                     className: classes.menu,
                     },
                 }}
-                // helperText="Please select your currency"
+                helperText="Please select a visibility option"
                 margin="normal"
                 >
                 {visibilityOptions.map(option => (
@@ -81,11 +89,10 @@ const PostCreate = props => {
                 <TextField
                 id="tag-input"
                 className={classes.textField}
-                label="tags"
-                margin="normal"
-                onChange={event => { setTag(event.target.value) }}
-                value={tag} />
-                {/* <button onClick={handleClick} >Add tag</button> */}
+                label="Tags"
+                margin="normal" />
+                {/* onChange={event => { setTag(event.target.value) }}
+                value={tag} /> */}
                 <Button
                 className={classes.button}
                 variant="contained"
@@ -95,7 +102,43 @@ const PostCreate = props => {
                     Add tag
                 </Button>
             </div>
-            
+            <div id='tags'></div>
+            <div className='field'>
+                <TextField
+                id="question"
+                className={classes.textField}
+                label="Question"
+                margin="normal"
+                onChange={event => { setQuestion(event.target.value) }}
+                value={question} />
+            </div>
+            <div className='field'>
+                <TextField
+                id="description"
+                className={classes.textField}
+                label="Description"
+                margin="normal"
+                onChange={event => { setDescription(event.target.value) }}
+                value={description} />
+            </div>
+            <div className='field'>
+                <TextField
+                id="option-input"
+                className={classes.textField}
+                label="Voting Option"
+                margin="normal" />
+                {/* onChange={event => { setOption(event.target.value) }}
+                value={option} /> */}
+                <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={handleClick} >
+                    Add option
+                </Button>
+            </div>
+            <div id='options'></div>
         </form>
     )
     
