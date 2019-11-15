@@ -81,6 +81,16 @@ const PostCreate = props => {
         }
     }
 
+    const handlePost = event => {
+        if (! visibility) console.log('You must pick a visibility option')
+        if (tags < 1) console.log('please set at least one tag')
+        if (! question) console.log('You need a question for your poll')
+        if (! description) console.log('If you want to provide more information for your poll, then please provide a description')
+        if (options.length < 2) console.log('You must have at least 2 voting options')
+    }
+
+    // console.log(visibility, tags, question, description, options)
+
     return (
         <Container maxWidth='sm'>
             <h1>Create a Poll</h1>
@@ -196,7 +206,8 @@ const PostCreate = props => {
                 color="primary"
                 className={classes.button}
                 endIcon={<Icon>send</Icon>}
-                size='large' >
+                size='large'
+                onClick={handlePost} >
                     Post
                 </Button>
                 </div>
