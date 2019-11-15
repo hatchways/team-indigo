@@ -2,6 +2,7 @@ import './PostCreate.css'
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Menu, MenuItem, Button } from '@material-ui/core'
+// import SaveIcon from '@material-ui/icons/Save';
 // import { Menu, MenuItem } from '@material-ui/core/Menu'
 
 const visibilityOptions = [
@@ -27,6 +28,9 @@ const visibilityOptions = [
     },
     menu: {
       width: 200,
+    },
+    button: {
+        margin: theme.spacing(1),
     },
 }));
 
@@ -68,21 +72,30 @@ const PostCreate = props => {
                 >
                 {visibilityOptions.map(option => (
                     <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                        {option.label}
                     </MenuItem>
                 ))}
                 </TextField>
             </div>
-            <div>
+            <div className='field'>
                 <TextField
-                id="tags"
+                id="tag-input"
                 className={classes.textField}
                 label="tags"
                 margin="normal"
                 onChange={event => { setTag(event.target.value) }}
                 value={tag} />
-                <button onClick={handleClick} >Add tag</button>
+                {/* <button onClick={handleClick} >Add tag</button> */}
+                <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={handleClick} >
+                    Add tag
+                </Button>
             </div>
+            
         </form>
     )
     
