@@ -1,7 +1,7 @@
 import './PostCreate.css'
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, TextField, MenuItem, Button } from '@material-ui/core'
+import { Container, TextField, MenuItem, Button, Icon } from '@material-ui/core'
 
 const visibilityOptions = [
     {
@@ -156,6 +156,16 @@ const PostCreate = props => {
                             </Button>
                         )
                     })}
+                </div>
+                <div>
+                <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                endIcon={<Icon>send</Icon>}
+                size='large' >
+                    Post
+                </Button>
                 </div>
             </form>
         </Container>
