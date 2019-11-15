@@ -45,7 +45,7 @@ const PostCreate = props => {
         setVisibility(event.target.value);
     };
 
-    const handleClick = event => {
+    const handleAdd = event => {
         const ref=event.target.textContent.split(' ')[1]
         const input=document.getElementById(`${ref}-input`)
         const { value }=input
@@ -54,8 +54,35 @@ const PostCreate = props => {
         input.value=''
     }
 
+    const handleClose = event => {
+        let target=event.target
+        let ref=target.textContent.substring(5)
+        let { value } = target
+
+        if (! value) {
+            target = target.parentElement
+            value = target.value
+
+            if (! value) {
+                target = target.parentElement.parentElement
+                ref=target.textContent.substring(5)
+                value = target.value
+            }
+        }
+        
+        if (value === 'tag') {
+            const index=tags.indexOf(ref)
+            tags.splice(index, 1)
+            setTags([...tags])
+        } else if (value === 'option') {
+            const index=options.indexOf(ref)
+            options.splice(index, 1)
+            setOptions([...options])
+        }
+    }
+
     return (
-        <Container>
+        <Container maxWidth='sm'>
             <h1>Create a Poll</h1>
             <form className={classes.container} noValidate autoComplete='off'>
                 <div>
@@ -92,7 +119,7 @@ const PostCreate = props => {
                     variant="contained"
                     color="primary"
                     size="large"
-                    onClick={handleClick} >
+                    onClick={handleAdd} >
                         Add tag
                     </Button>
                 </div>
@@ -101,10 +128,13 @@ const PostCreate = props => {
                         return (
                             <Button
                             key={el}
+                            value='tag'
                             className={classes.button}
                             variant="contained"
                             color="primary"
-                            size="medium" >
+                            startIcon={<Icon>close</Icon>}
+                            size="medium"
+                            onClick={handleClose} >
                                 {el}
                             </Button>
                         )
@@ -139,7 +169,7 @@ const PostCreate = props => {
                     variant="contained"
                     color="primary"
                     size="large"
-                    onClick={handleClick} >
+                    onClick={handleAdd} >
                         Add option
                     </Button>
                 </div>
@@ -148,10 +178,13 @@ const PostCreate = props => {
                         return (
                             <Button
                             key={el}
+                            value='option'
                             className={classes.button}
                             variant="contained"
                             color="primary"
-                            size="medium" >
+                            startIcon={<Icon>close</Icon>}
+                            size="medium"
+                            onClick={handleClose} >
                                 {el}
                             </Button>
                         )
