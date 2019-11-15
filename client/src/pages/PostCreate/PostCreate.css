@@ -1,31 +1,4 @@
-.post-create {
-    margin: 25px 15% 25px 15%;
-}
-
-.field {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.field label {
-    margin-right: 5px;
-}
-
-.field input {
-    margin-right: 5px;
-    margin-bottom: 5px;
-}
-
-.field section button {
-    margin-right: 15px;
-}
-
-#description {
+form {
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
-}
-
-#description label {
-    margin-bottom: 5px;
 }
