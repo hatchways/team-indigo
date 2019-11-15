@@ -33,7 +33,7 @@ const visibilityOptions = [
 const PostCreate = props => {
     const classes = useStyles();
 
-    // const [tag, setTag] = useState('')
+    const [tag, setTag] = useState('')
     // const [option, setOption] = useState('')
 
     const [visibility, setVisibility] = React.useState('EUR');
@@ -41,6 +41,12 @@ const PostCreate = props => {
     const handleChange = event => {
         setVisibility(event.target.value);
     };
+
+    const handleClick = event => {
+        event.preventDefault()
+        const target=event.target
+        console.log(target)
+    }
 
     return (
         <form className={classes.container} noValidate autoComplete='off'>
@@ -68,22 +74,18 @@ const PostCreate = props => {
                 </TextField>
             </div>
             <div>
-                <TextField >
-                </TextField>
+                <TextField
+                id="tags"
+                className={classes.textField}
+                label="tags"
+                margin="normal"
+                onChange={event => { setTag(event.target.value) }}
+                value={tag} />
+                <button onClick={handleClick} >Add tag</button>
             </div>
         </form>
     )
-    // function handleClick(event) {
-    //     const target=event.target
-    //     const text=target.textContent
-    //     const ref=text.split(' ')[1]
-    //     const inputTarget=document.getElementById(`${ref}-input`)
-    //     const appendTarget=document.getElementById(`${ref}s`)
-    //     const { value } = inputTarget
-    //     const element=document.createElement('button')
-    //     element.textContent=value
-    //     appendTarget.appendChild(element)
-    // }
+    
 
     // return (
     //     <section className='post-create'>
