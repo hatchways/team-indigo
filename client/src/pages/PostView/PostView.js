@@ -5,6 +5,7 @@ import { Container, Grid, Avatar, Button, FormControl, FormControlLabel, FormLab
 
 import profileImage from '../../assets/images/profile-pic-placeholder.png'
 
+// user data
 const users=[
     { username: 'Steven Colbert',
       answer: 'League' },
@@ -14,47 +15,66 @@ const users=[
       answer: 'League' }
 ]
 
+// poll tag data
 const tags=[
     'Gaming',
     '2019'
 ]
 
+// poll option data
 const options=[
     'League',
     'Overwatch'
 ]
 
+// styling for components
 const useStyles = makeStyles(theme => ({
+    // container styling
     root: {
       flexGrow: 1,
     },
+    // button styling
     button: {
         margin: theme.spacing(1),
     },
+    // profile picture styling
     avatar: {
         margin: 10,
         width: 200,
         height: 200,
     },
+    // profile picture sidebar styling
     avatarSidebar: {
         margin: 10,
     },
+    // voting options styling
     formControl: {
         margin: theme.spacing(3),
     },
+    // 
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
     },
   }));
 
+// post view component
 const PostView = props => {
     const classes = useStyles()
-    const [option, setOption] = useState('league')
 
+    // voting options
+    const [option, setOption] = useState('league')
+    const [comment, setComment]=useState('')
+
+    // handles voting option selection
     const handleChange = event => {
         const { value } = event.target
+        
         setOption(value);
+    }
+
+    const handleVote = event => {
+        console.log(option)
     }
 
     return (
@@ -63,18 +83,21 @@ const PostView = props => {
                 <Grid item xs={3}>
                     {users.map(user => {
                         return (
-                            <Grid container>
+                            <Grid container
+                            key={user.username} >
                                 <Grid item xs={6} sm={5} md={3}>
-                                    <Avatar alt="Profile Pic Placeholder" src={profileImage} className={classes.avatarSidebar} />
+                                    <Avatar
+                                    alt="Profile Pic Placeholder"
+                                    src={profileImage}
+                                    className={classes.avatarSidebar} />
                                 </Grid>
-                                
                                 <Grid item xs={6} sm={7} md={9}>
                                     <Grid container>
                                         <Grid item xs={12}>
                                             <label>{user.username}</label>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <label>{user.answer}</label>
+                                            <label style={{fontWeight: 20}}>{user.answer}</label>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -118,31 +141,39 @@ const PostView = props => {
                                 <FormLabel component="legend">Voting options</FormLabel>
                                 <RadioGroup aria-label="voting-option" name="option" value={option} onChange={handleChange}>
                                     {options.map(el => {
+                                        const key=el.toLowerCase()
                                         return (
-                                            <FormControlLabel value={el.toLowerCase()} control={<Radio />} label={el} />
+                                            <FormControlLabel
+                                            key={key}
+                                            value={key}
+                                            control={<Radio />}
+                                            label={el} />
                                         )
                                     })}
                                 </RadioGroup>
                             </FormControl>
                         </Grid>
-                        <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                        size="large" >
-                            Vote
-                        </Button>
                     </Grid>
                     <Grid container>
                         <Grid item xs={8}>
                             <TextField
-                            id="outlined"
+                            id="comment"
                             label="Write a comment"
                             className={classes.textField}
                             margin="normal"
                             variant="outlined"
                             fullWidth={true} />
                         </Grid>
+                    </Grid>
+                    <Grid container >
+                    <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        onClick={handleVote}>
+                            Vote
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>
