@@ -13,7 +13,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route path="/" component={PostCreate} />
+        <Route exact path="/" component={PostCreate} />
         <Route path="/post/create" component={PostCreate} />
         <Route path="/post/view" component={PostView} />
       </BrowserRouter>
