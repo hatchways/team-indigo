@@ -4,7 +4,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 // import LandingPage from "./pages/Landing";
-import PostCreate from "./pages/PostCreate/PostCreate"
+// import PostCreate from "./pages/PostCreate/PostCreate";
+import PostView from "./pages/PostView/PostView";
 
 import "./App.css";
 
@@ -12,7 +13,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <Route path="/" component={PostCreate} />
+        <Route path="/" component={PostView} />
       </BrowserRouter>
     </MuiThemeProvider>
   );
