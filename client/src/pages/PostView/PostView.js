@@ -58,23 +58,23 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-// post view component
 const PostView = props => {
     const classes = useStyles()
 
-    // voting options
     const [option, setOption] = useState('league')
     const [comment, setComment]=useState('')
 
-    // handles voting option selection
     const handleChange = event => {
-        const { value } = event.target
-        
-        setOption(value);
+        const { name, value } = event.target
+        console.log(name)
+
+        if (name === 'option') setOption(value)
+        if (name === 'comment') setComment(value)
     }
 
     const handleVote = event => {
         console.log(option)
+        console.log(comment)
     }
 
     return (
@@ -158,6 +158,9 @@ const PostView = props => {
                         <Grid item xs={8}>
                             <TextField
                             id="comment"
+                            name="comment"
+                            value={comment}
+                            onChange={handleChange}
                             label="Write a comment"
                             className={classes.textField}
                             margin="normal"
