@@ -4,7 +4,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Avatar, Button, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, TextField } from '@material-ui/core'
 
 import profileImage from '../../assets/images/profile-pic-placeholder.png'
-import { borderRight } from '@material-ui/system';
+
+const users=[
+    { username: 'Steven Colbert',
+      answer: 'League' },
+    { username: 'Dana Carvey',
+      answer: 'Overwatch' },
+    { username: 'Liev Schreiber',
+      answer: 'League' }
+]
 
 const tags=[
     'Gaming',
@@ -28,6 +36,9 @@ const useStyles = makeStyles(theme => ({
         width: 200,
         height: 200,
     },
+    avatarSidebar: {
+        margin: 10,
+    },
     formControl: {
         margin: theme.spacing(3),
     },
@@ -39,18 +50,37 @@ const useStyles = makeStyles(theme => ({
 
 const PostView = props => {
     const classes = useStyles()
-    const [value, setValue] = React.useState('league')
+    const [option, setOption] = useState('league')
 
     const handleChange = event => {
         const { value } = event.target
-        setValue(value);
+        setOption(value);
     }
 
     return (
         <Container className={classes.root} maxWidth='lg'>
             <Grid container spacing={2}>
                 <Grid item xs={3}>
-                    <h3>Sidebar</h3>
+                    {users.map(user => {
+                        return (
+                            <Grid container>
+                                <Grid item xs={6} sm={5} md={3}>
+                                    <Avatar alt="Profile Pic Placeholder" src={profileImage} className={classes.avatarSidebar} />
+                                </Grid>
+                                
+                                <Grid item xs={6} sm={7} md={9}>
+                                    <Grid container>
+                                        <Grid item xs={12}>
+                                            <label>{user.username}</label>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <label>{user.answer}</label>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        )
+                    })}
                 </Grid>
                 <Grid item xs={9}>
                     <Grid container>
@@ -86,7 +116,7 @@ const PostView = props => {
                         <Grid item xs={12}>
                             <FormControl component="fieldset" className={classes.formControl}>
                                 <FormLabel component="legend">Voting options</FormLabel>
-                                <RadioGroup aria-label="voting-option" name="option" value={value} onChange={handleChange}>
+                                <RadioGroup aria-label="voting-option" name="option" value={option} onChange={handleChange}>
                                     {options.map(el => {
                                         return (
                                             <FormControlLabel value={el.toLowerCase()} control={<Radio />} label={el} />
