@@ -29,29 +29,23 @@ const options=[
 
 // styling for components
 const useStyles = makeStyles(theme => ({
-    // container styling
     root: {
       flexGrow: 1,
     },
-    // button styling
     button: {
         margin: theme.spacing(1),
     },
-    // profile picture styling
     avatar: {
         margin: 10,
         width: 200,
         height: 200,
     },
-    // profile picture sidebar styling
     avatarSidebar: {
         margin: 10,
     },
-    // voting options styling
     formControl: {
         margin: theme.spacing(3),
     },
-    // 
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
