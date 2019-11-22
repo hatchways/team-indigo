@@ -89,6 +89,11 @@ const PostCreate = props => {
         if (options.length < 2) console.log('You must have at least 2 voting options')
     }
 
+    const isEnabled = () => {
+        const enabled = (visibility.length > 0 && tags.length > 0 && question.length > 0 && options.length > 1)
+        console.log(enabled)
+        return enabled
+    }
     // console.log(visibility, tags, question, description, options)
 
     return (
@@ -207,7 +212,8 @@ const PostCreate = props => {
                 className={classes.button}
                 endIcon={<Icon>send</Icon>}
                 size='large'
-                onClick={handlePost} >
+                onClick={handlePost}
+                disabled={ ! isEnabled() }>
                     Post
                 </Button>
                 </div>
