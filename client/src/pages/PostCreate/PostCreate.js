@@ -115,8 +115,8 @@ const PostCreate = props => {
     const errors = validate()
 
     const isDisabled = Object.keys(errors)
-                        .filter(key => key !== 'description')
-                        .some(key => errors[key])
+                             .filter(key => key !== 'description')
+                             .some(key => errors[key])
 
     const handleBlur = field => event => {
         setTouched({...touched, [field]: true})
@@ -140,14 +140,14 @@ const PostCreate = props => {
                     className={classes.textField}
                     value={visibility}
                     onChange={handleChange}
+                    onBlur={handleBlur('visibility')}
+                    helperText={shouldMarkError('visibility') ? messages.visibility : '' }
+                    margin="normal"
                     SelectProps={{
                         MenuProps: {
                         className: classes.menu,
                         },
                     }}
-                    onBlur={handleBlur('visibility')}
-                    helperText={shouldMarkError('visibility') ? messages.visibility : '' }
-                    margin="normal"
                     >
                     {visibilityOptions.map(option => (
                         <MenuItem key={option.value} value={option.value}>
