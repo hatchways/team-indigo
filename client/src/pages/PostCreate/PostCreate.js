@@ -81,21 +81,31 @@ const PostCreate = props => {
         }
     }
 
-    const handlePost = event => {
-        if (! visibility) console.log('You must pick a visibility option')
-        if (tags < 1) console.log('please set at least one tag')
-        if (! question) console.log('You need a question for your poll')
-        if (! description) console.log('If you want to provide more information for your poll, then please provide a description')
-        if (options.length < 2) console.log('You must have at least 2 voting options')
+    const handlePost = () => {
+        const post={visibility, tags, question, description, options}
+        console.log(post)
     }
 
     const isEnabled = () => {
-        const enabled = (visibility.length > 0 && tags.length > 0 && question.length > 0 && options.length > 1)
-        console.log(enabled)
-        return enabled
+        return (
+            visibility.length > 0
+            && tags.length > 0
+            && question.length > 0
+            && options.length > 1
+        )
     }
-    // console.log(visibility, tags, question, description, options)
 
+    const validate = () => {
+        return {
+            visibility: visibility.length <= 0,
+            tags: tags.length <= 0,
+            description: description.length <= 0,
+            question: question.length <= 0,
+            options: options.length <= 1
+        }
+    }
+
+    const errors = validate()
     return (
         <Container maxWidth='sm'>
             <h1>Create a Poll</h1>
@@ -113,7 +123,7 @@ const PostCreate = props => {
                         className: classes.menu,
                         },
                     }}
-                    helperText="Please select a visibility option"
+                    helperText={errors.visibility ? "Please select a visibility option" : '' }
                     margin="normal"
                     >
                     {visibilityOptions.map(option => (
@@ -128,6 +138,7 @@ const PostCreate = props => {
                     id="tag-input"
                     className={classes.textField}
                     label="Tags"
+                    helperText={errors.tags ? 'Provide at least one tag' : ''}
                     margin="normal" />
                     <Button
                     className={classes.button}
@@ -160,6 +171,7 @@ const PostCreate = props => {
                     id="question"
                     className={classes.textField}
                     label="Question"
+                    helperText={errors.question ? 'Ask a question' : ''}
                     margin="normal"
                     onChange={event => { setQuestion(event.target.value) }}
                     value={question} />
@@ -169,6 +181,7 @@ const PostCreate = props => {
                     id="description"
                     className={classes.textField}
                     label="Description"
+                    helperText={errors.description ? 'A description is not required, but it may help' : ''}
                     margin="normal"
                     onChange={event => { setDescription(event.target.value) }}
                     value={description} />
@@ -178,6 +191,7 @@ const PostCreate = props => {
                     id="option-input"
                     className={classes.textField}
                     label="Voting Option"
+                    helperText={errors.options ? 'Provide at least two voting options' : ''}
                     margin="normal" />
                     <Button
                     className={classes.button}
