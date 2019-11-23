@@ -86,15 +86,6 @@ const PostCreate = props => {
         console.log(post)
     }
 
-    const isEnabled = () => {
-        return (
-            visibility.length > 0
-            && tags.length > 0
-            && question.length > 0
-            && options.length > 1
-        )
-    }
-
     const validate = () => {
         return {
             visibility: visibility.length <= 0,
@@ -106,6 +97,11 @@ const PostCreate = props => {
     }
 
     const errors = validate()
+
+const isDisabled = Object.keys(errors)
+                        .filter(key => key !== 'description')
+                        .some(key => errors[key])
+
     return (
         <Container maxWidth='sm'>
             <h1>Create a Poll</h1>
@@ -227,7 +223,7 @@ const PostCreate = props => {
                 endIcon={<Icon>send</Icon>}
                 size='large'
                 onClick={handlePost}
-                disabled={ ! isEnabled() }>
+                disabled={ isDisabled }>
                     Post
                 </Button>
                 </div>
