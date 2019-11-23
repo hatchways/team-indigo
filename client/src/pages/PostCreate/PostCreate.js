@@ -41,6 +41,22 @@ const PostCreate = props => {
     const [description, setDescription] = useState('')
     const [options, setOptions] = useState([])
 
+    const [touched, setTouched] = useState({
+        visibility: false,
+        tags: false,
+        question: false,
+        description: false,
+        options: false
+    })
+
+    const messages = {
+        visibility: "Please select a visibility option",
+        tags: 'Please provide at least one tag',
+        question: 'Please provide a question for your poll',
+        description: 'A description is not required, but it may help',
+        options: 'Please provide at least two voting options'
+    }
+
     const handleChange = event => {
         setVisibility(event.target.value);
     };
@@ -98,9 +114,19 @@ const PostCreate = props => {
 
     const errors = validate()
 
-const isDisabled = Object.keys(errors)
+    const isDisabled = Object.keys(errors)
                         .filter(key => key !== 'description')
                         .some(key => errors[key])
+
+    const handleBlur = field => event => {
+        setTouched({...touched, [field]: true})
+    }
+
+    const shouldMarkError = field => {
+        const hasError = errors[field];
+        const shouldShow = touched[field];
+        return hasError ? shouldShow : false;
+    }
 
     return (
         <Container maxWidth='sm'>
@@ -119,7 +145,8 @@ const isDisabled = Object.keys(errors)
                         className: classes.menu,
                         },
                     }}
-                    helperText={errors.visibility ? "Please select a visibility option" : '' }
+                    onBlur={handleBlur('visibility')}
+                    helperText={shouldMarkError('visibility') ? messages.visibility : '' }
                     margin="normal"
                     >
                     {visibilityOptions.map(option => (
@@ -134,7 +161,8 @@ const isDisabled = Object.keys(errors)
                     id="tag-input"
                     className={classes.textField}
                     label="Tags"
-                    helperText={errors.tags ? 'Provide at least one tag' : ''}
+                    onBlur={handleBlur('tags')}
+                    helperText={shouldMarkError('tags') ? messages.tags : ''}
                     margin="normal" />
                     <Button
                     className={classes.button}
@@ -167,7 +195,8 @@ const isDisabled = Object.keys(errors)
                     id="question"
                     className={classes.textField}
                     label="Question"
-                    helperText={errors.question ? 'Ask a question' : ''}
+                    onBlur={handleBlur('question')}
+                    helperText={shouldMarkError('question') ? messages.question : ''}
                     margin="normal"
                     onChange={event => { setQuestion(event.target.value) }}
                     value={question} />
@@ -177,7 +206,8 @@ const isDisabled = Object.keys(errors)
                     id="description"
                     className={classes.textField}
                     label="Description"
-                    helperText={errors.description ? 'A description is not required, but it may help' : ''}
+                    onBlur={handleBlur('description')}
+                    helperText={shouldMarkError('description') ? messages.description : ''}
                     margin="normal"
                     onChange={event => { setDescription(event.target.value) }}
                     value={description} />
@@ -187,7 +217,8 @@ const isDisabled = Object.keys(errors)
                     id="option-input"
                     className={classes.textField}
                     label="Voting Option"
-                    helperText={errors.options ? 'Provide at least two voting options' : ''}
+                    onBlur={handleBlur('options')}
+                    helperText={shouldMarkError('options') ? messages.options : ''}
                     margin="normal" />
                     <Button
                     className={classes.button}
