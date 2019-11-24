@@ -3,6 +3,12 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, TextField, MenuItem, Button, Icon } from '@material-ui/core'
 
+import VisibilityField from './Fields/Visibility';
+import TagsField from './Fields/Tags'
+import QuestionField from './Fields/Question';
+import DescriptionField from './Fields/Description';
+import VotingOptionsField from './Fields/VotingOptions';
+
 const visibilityOptions = [
     {
       value: 'public',
@@ -132,131 +138,62 @@ const PostCreate = props => {
         <Container maxWidth='sm'>
             <h1>Create a Poll</h1>
             <form className={classes.container} noValidate autoComplete='off'>
+                
+                <VisibilityField
+                classes={classes}
+                visibility={visibility}
+                visibilityOptions={visibilityOptions}
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                shouldMarkError={shouldMarkError}
+                messages={messages} />
+
+                <TagsField
+                classes={classes}
+                tags={tags}
+                handleAdd={handleAdd}
+                handleBlur={handleBlur}
+                handleClose={handleClose}
+                shouldMarkError={shouldMarkError}
+                messages={messages} />
+
+                <QuestionField
+                classes={classes}
+                question={question}
+                setQuestion={setQuestion}
+                handleBlur={handleBlur}
+                shouldMarkError={shouldMarkError}
+                messages={messages} />
+
+                <DescriptionField
+                classes={classes}
+                description={description}
+                setDescription={setDescription}
+                handleBlur={handleBlur}
+                shouldMarkError={shouldMarkError}
+                messages={messages} />
+
+                <VotingOptionsField
+                classes={classes}
+                options={options}
+                setOptions={setOptions}
+                handleAdd={handleAdd}
+                handleBlur={handleBlur}
+                handleClose={handleClose}
+                shouldMarkError={shouldMarkError}
+                messages={messages} />
+                
                 <div>
-                    <TextField
-                    id="select-visibility"
-                    select
-                    label="Select Poll Visibility"
-                    className={classes.textField}
-                    value={visibility}
-                    onChange={handleChange}
-                    onBlur={handleBlur('visibility')}
-                    helperText={shouldMarkError('visibility') ? messages.visibility : '' }
-                    margin="normal"
-                    SelectProps={{
-                        MenuProps: {
-                        className: classes.menu,
-                        },
-                    }}
-                    >
-                    {visibilityOptions.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
-                    </TextField>
-                </div>
-                <div className='field'>
-                    <TextField
-                    id="tag-input"
-                    className={classes.textField}
-                    label="Tags"
-                    onBlur={handleBlur('tags')}
-                    helperText={shouldMarkError('tags') ? messages.tags : ''}
-                    margin="normal" />
                     <Button
-                    className={classes.button}
                     variant="contained"
                     color="primary"
-                    size="large"
-                    onClick={handleAdd} >
-                        Add tag
-                    </Button>
-                </div>
-                <div id='tags'>
-                    {tags.map(el => {
-                        return (
-                            <Button
-                            key={el}
-                            value='tag'
-                            className={classes.button}
-                            variant="contained"
-                            color="primary"
-                            startIcon={<Icon>close</Icon>}
-                            size="medium"
-                            onClick={handleClose} >
-                                {el}
-                            </Button>
-                        )
-                    })}
-                </div>
-                <div className='field'>
-                    <TextField
-                    id="question"
-                    className={classes.textField}
-                    label="Question"
-                    onBlur={handleBlur('question')}
-                    helperText={shouldMarkError('question') ? messages.question : ''}
-                    margin="normal"
-                    onChange={event => { setQuestion(event.target.value) }}
-                    value={question} />
-                </div>
-                <div className='field'>
-                    <TextField
-                    id="description"
-                    className={classes.textField}
-                    label="Description"
-                    onBlur={handleBlur('description')}
-                    helperText={shouldMarkError('description') ? messages.description : ''}
-                    margin="normal"
-                    onChange={event => { setDescription(event.target.value) }}
-                    value={description} />
-                </div>
-                <div className='field'>
-                    <TextField
-                    id="option-input"
-                    className={classes.textField}
-                    label="Voting Option"
-                    onBlur={handleBlur('options')}
-                    helperText={shouldMarkError('options') ? messages.options : ''}
-                    margin="normal" />
-                    <Button
                     className={classes.button}
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    onClick={handleAdd} >
-                        Add option
+                    endIcon={<Icon>send</Icon>}
+                    size='large'
+                    onClick={handlePost}
+                    disabled={ isDisabled }>
+                        Post
                     </Button>
-                </div>
-                <div id='options'>
-                {options.map(el => {
-                        return (
-                            <Button
-                            key={el}
-                            value='option'
-                            className={classes.button}
-                            variant="contained"
-                            color="primary"
-                            startIcon={<Icon>close</Icon>}
-                            size="medium"
-                            onClick={handleClose} >
-                                {el}
-                            </Button>
-                        )
-                    })}
-                </div>
-                <div>
-                <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                endIcon={<Icon>send</Icon>}
-                size='large'
-                onClick={handlePost}
-                disabled={ isDisabled }>
-                    Post
-                </Button>
                 </div>
             </form>
         </Container>
