@@ -2,6 +2,11 @@ import React from 'react';
 import { TextField, MenuItem } from '@material-ui/core'
 
 function VisibilityField(props) {
+
+    const handleChange = event => {
+        props.setVisibility(event.target.value);
+    };
+
     return (
         <div>
             <TextField
@@ -10,7 +15,7 @@ function VisibilityField(props) {
             label="Select Poll Visibility"
             className={props.classes.textField}
             value={props.visibility}
-            onChange={props.handleChange}
+            onChange={handleChange}
             onBlur={props.handleBlur('visibility')}
             helperText={props.shouldMarkError('visibility') ? props.messages.visibility : '' }
             margin="normal"

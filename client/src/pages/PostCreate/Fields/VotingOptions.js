@@ -22,7 +22,7 @@ function VotingOptionsField(props) {
                     Add option
                 </Button>
             </div>
-            
+
             <div id='options'>
             {props.options.map(el => {
                     return (
@@ -34,7 +34,7 @@ function VotingOptionsField(props) {
                         color="primary"
                         startIcon={<Icon>close</Icon>}
                         size="medium"
-                        onClick={props.handleClose} >
+                        onClick={props.handleRemove} >
                             {el}
                         </Button>
                     )

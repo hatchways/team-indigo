@@ -1,13 +1,14 @@
 import './PostCreate.css'
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, TextField, MenuItem, Button, Icon } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 
 import VisibilityField from './Fields/Visibility';
 import TagsField from './Fields/Tags'
 import QuestionField from './Fields/Question';
 import DescriptionField from './Fields/Description';
 import VotingOptionsField from './Fields/VotingOptions';
+import ButtonCreatePost from './ButtonCreatePost';
 
 const visibilityOptions = [
     {
@@ -62,11 +63,7 @@ const PostCreate = props => {
         description: 'A description is not required, but it may help',
         options: 'Please provide at least two voting options'
     }
-
-    const handleChange = event => {
-        setVisibility(event.target.value);
-    };
-
+    
     const handleAdd = event => {
         const ref=event.target.textContent.split(' ')[1]
         const input=document.getElementById(`${ref}-input`)
@@ -76,7 +73,7 @@ const PostCreate = props => {
         input.value=''
     }
 
-    const handleClose = event => {
+    const handleRemove = event => {
         let target=event.target
         let ref=target.textContent.substring(5)
         let { value } = target
@@ -142,9 +139,9 @@ const PostCreate = props => {
                 <VisibilityField
                 classes={classes}
                 visibility={visibility}
+                setVisibility={setVisibility}
                 visibilityOptions={visibilityOptions}
                 handleBlur={handleBlur}
-                handleChange={handleChange}
                 shouldMarkError={shouldMarkError}
                 messages={messages} />
 
@@ -153,7 +150,7 @@ const PostCreate = props => {
                 tags={tags}
                 handleAdd={handleAdd}
                 handleBlur={handleBlur}
-                handleClose={handleClose}
+                handleRemove={handleRemove}
                 shouldMarkError={shouldMarkError}
                 messages={messages} />
 
@@ -179,22 +176,14 @@ const PostCreate = props => {
                 setOptions={setOptions}
                 handleAdd={handleAdd}
                 handleBlur={handleBlur}
-                handleClose={handleClose}
+                handleRemove={handleRemove}
                 shouldMarkError={shouldMarkError}
                 messages={messages} />
                 
-                <div>
-                    <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    endIcon={<Icon>send</Icon>}
-                    size='large'
-                    onClick={handlePost}
-                    disabled={ isDisabled }>
-                        Post
-                    </Button>
-                </div>
+                <ButtonCreatePost
+                classes={classes}
+                handlePost={handlePost}
+                isDisabled={isDisabled} />
             </form>
         </Container>
     )

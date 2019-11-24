@@ -22,7 +22,7 @@ function TagsField(props) {
                             Add tag
                         </Button>
                 </div>
-                
+
                 <div id='tags'>
                     {props.tags.map(el => {
                         return (
@@ -34,7 +34,7 @@ function TagsField(props) {
                             color="primary"
                             startIcon={<Icon>close</Icon>}
                             size="medium"
-                            onClick={props.handleClose} >
+                            onClick={props.handleRemove} >
                                 {el}
                             </Button>
                         )
