@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from './Logo_house.svg'
+import Logo from '..assets/images/Logo_house.svg'
 
 import {AppBar, Toolbar, TextField, Avatar} from '@material-ui/core';
 
