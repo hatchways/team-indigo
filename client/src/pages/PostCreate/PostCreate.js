@@ -63,7 +63,7 @@ const PostCreate = props => {
         description: 'A description is not required, but it may help',
         options: 'Please provide at least two voting options'
     }
-    
+
     const handleAdd = event => {
         const ref=event.target.textContent.split(' ')[1]
         const input=document.getElementById(`${ref}-input`)
@@ -71,6 +71,10 @@ const PostCreate = props => {
         if (ref === 'tag') setTags([...tags, value])
         if (ref === 'option') setOptions([...options, value])
         input.value=''
+    }
+
+    const handleBlur = field => event => {
+        setTouched({...touched, [field]: true})
     }
 
     const handleRemove = event => {
@@ -117,13 +121,7 @@ const PostCreate = props => {
 
     const errors = validate()
 
-    const isDisabled = Object.keys(errors)
-                             .filter(key => key !== 'description')
-                             .some(key => errors[key])
-
-    const handleBlur = field => event => {
-        setTouched({...touched, [field]: true})
-    }
+    
 
     const shouldMarkError = field => {
         const hasError = errors[field];
@@ -183,7 +181,7 @@ const PostCreate = props => {
                 <ButtonCreatePost
                 classes={classes}
                 handlePost={handlePost}
-                isDisabled={isDisabled} />
+                errors={errors} />
             </form>
         </Container>
     )

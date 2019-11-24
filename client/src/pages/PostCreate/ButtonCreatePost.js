@@ -2,6 +2,10 @@ import React from 'react'
 import { Button, Icon } from '@material-ui/core'
 
 function ButtonCreatePost(props) {
+    const isDisabled = Object.keys(props.errors)
+                             .filter(key => key !== 'description')
+                             .some(key => props.errors[key])
+
     return (
         <div>
             <Button
@@ -11,7 +15,7 @@ function ButtonCreatePost(props) {
             endIcon={<Icon>send</Icon>}
             size='large'
             onClick={props.handlePost}
-            disabled={ props.isDisabled }>
+            disabled={ isDisabled }>
                 Post
             </Button>
         </div>
