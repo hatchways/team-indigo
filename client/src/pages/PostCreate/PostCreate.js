@@ -121,8 +121,6 @@ const PostCreate = props => {
 
     const errors = validate()
 
-    
-
     const shouldMarkError = field => {
         const hasError = errors[field];
         const shouldShow = touched[field];
