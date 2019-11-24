@@ -17,6 +17,8 @@ var join = require("path").join;
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var indexRouter = require("./routes/index");
+var accountRouter = require("./routes/accountRouter");
+var postRouter = require("./routes/postRouter");
 var pingRouter = require("./routes/ping");
 
 var app = express();
@@ -27,8 +29,10 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use(accountRouter);
+app.use(postRouter);
 app.use("/ping", pingRouter);
+//app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
