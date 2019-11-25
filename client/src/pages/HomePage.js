@@ -28,7 +28,6 @@ var postsMessageStyle = {
 function HomePage({props}) {
     return (
         <>
-            <Header />
             <div style={{height: '64px'}}></div>
             <div style={mainGridStyle}>
                 <span style={welcomeMessageStyle}>

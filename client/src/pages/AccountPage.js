@@ -43,7 +43,6 @@ function UserPosts() {
 function AccountPage({props}) {
     return (
         <>
-            <Header />
             <div style={{height: '64px'}}></div>
             <div style={mainGridStyle}>
                 <div style={userInformationStyle} className="userInformation">
