@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 function SignUp(props) {
     const classes = useStyles()
     return (
-        <Container style={{marginTop: '75px', marginLeft: '20%'}}>
+        <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
             <Grid container>
                 <h1>Sign up for Tindigo, and get to voting!</h1>
             </Grid>
