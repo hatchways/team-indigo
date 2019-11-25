@@ -12,6 +12,7 @@ import AccountPage from './pages/AccountPage'
 import PostCreate from "./pages/PostCreate/PostCreate";
 import PostView from "./pages/PostView/PostView";
 import SignUp from './pages/SignUp/SignUp';
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/post/create" component={PostCreate} />
         <Route path="/post/view" component={PostView} />
         <Route path='/signup' component={SignUp} />
+        <Route path='/login' component={Login} />
       </BrowserRouter>
     </MuiThemeProvider>
   );
