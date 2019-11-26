@@ -1,4 +1,4 @@
-form {
+/* form {
     display: flex;
     flex-direction: column;
 }
@@ -12,6 +12,6 @@ p[id$='helper-text'] {
     color: red;
 }
 
-#description-helper-text {
+#description-helper-text, #about-helper-text {
     color: rgba(0, 0, 0, 0.54);
-}
+} */
