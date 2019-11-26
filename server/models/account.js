@@ -4,9 +4,9 @@ var Schema = mongoose.Schema;
 
 var accountSchema = new Schema({
 
-   firstName : String,
+   firstName : { type: String, required: true },
 
-   lastName : String,
+   lastName : { type: String, required: true },
 
    username : { type: String, required: true, unique: true },
 
@@ -16,7 +16,7 @@ var accountSchema = new Schema({
 
    password: { type: String, required: true, select: false},
 
-   emailAddress: { type: String, required: true, select: false },
+   emailAddress: { type: String, required: true, select: false, unique: true },
 
    dateCreated : String
 
