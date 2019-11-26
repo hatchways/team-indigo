@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../components/Header';
 
 import {Avatar} from '@material-ui/core';
 
