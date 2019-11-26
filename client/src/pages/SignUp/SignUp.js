@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, TextField, Button } from '@material-ui/core'
 
@@ -15,6 +15,46 @@ const useStyles = makeStyles(theme => ({
 
 function SignUp(props) {
     const classes = useStyles()
+
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [email, setEmail] = useState('')
+    const [about, setAbout] = useState('')
+    const [userName, setUserName] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPass, setConfirmPass] = useState('')
+
+    const handleChange = event => {
+        const { name, value } = event.target
+
+        switch(name) {
+            case 'firstName':
+                setFirstName(value)
+                break
+            case 'lastName':
+                setLastName(value)
+                break
+            case 'email':
+                setEmail(value)
+                break
+            case 'about':
+                setAbout(value)
+                break
+            case 'userName':
+                setUserName(value)
+                break
+            case 'password':
+                setPassword(value)
+                break
+            case 'confirmPass':
+                setConfirmPass(value)
+                break
+            default:
+        }
+    }
+
+    console.log(firstName, lastName, email, about, userName, password, confirmPass, password === confirmPass)
+
     return (
         <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
             <Grid container>
@@ -25,6 +65,9 @@ function SignUp(props) {
                 <TextField
                 id='first-name'
                 label='First Name'
+                name='firstName'
+                value={firstName}
+                onChange={handleChange}
                 className={classes.textField}
                 margin='normal' />
             </Grid>
@@ -33,6 +76,9 @@ function SignUp(props) {
                 <TextField
                 id='last-name'
                 label='Last Name'
+                name='lastName'
+                value={lastName}
+                onChange={handleChange}
                 className={classes.textField}
                 margin='normal' />
             </Grid>
@@ -41,6 +87,9 @@ function SignUp(props) {
                 <TextField
                 id='email'
                 label='Email Address'
+                name='email'
+                value={email}
+                onChange={handleChange}
                 className={classes.textField}
                 margin='normal' />
             </Grid>
@@ -49,6 +98,9 @@ function SignUp(props) {
                 <TextField
                 id='about'
                 label='About'
+                name='about'
+                value={about}
+                onChange={handleChange}
                 className={classes.textField}
                 margin='normal' />
             </Grid>
@@ -57,6 +109,9 @@ function SignUp(props) {
                 <TextField
                 id='user-name'
                 label='User Name'
+                name='userName'
+                value={userName}
+                onChange={handleChange}
                 className={classes.textField}
                 margin='normal' />
             </Grid>
@@ -65,6 +120,9 @@ function SignUp(props) {
                 <TextField
                 id='password'
                 label='Password'
+                name='password'
+                value={password}
+                onChange={handleChange}
                 className={classes.textField}
                 margin='normal' />
             </Grid>
@@ -73,13 +131,14 @@ function SignUp(props) {
                 <TextField
                 id='confirm-password'
                 label='Confirm Password'
+                name='confirmPass'
+                value={confirmPass}
+                onChange={handleChange}
                 className={classes.textField}
                 margin='normal' />
             </Grid>
 
-            
-
-            <Grid contianer style={{marginTop: '15px'}}>
+            <Grid container style={{marginTop: '15px'}}>
                 <Button
                 variant="contained"
                 color="primary"
