@@ -18,6 +18,7 @@ function Login(props) {
 
     const [userName, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [token, setToken] = useState(null)
 
     const [touched, setTouched] = useState({
         userName: false,
@@ -43,9 +44,35 @@ function Login(props) {
         }
     }
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         const data={ userName, password }
         console.log(data)
+
+        // curl --data "username=johnsmith123&password=yellow1235" http://localhost:3001/account/signin
+        // we may want to retrieve the url as a environment variable
+        try {
+        const response = await fetch('http://localhost:3001/account/signin', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+          })
+          
+          const result = await response.json() // parses JSON response into native JavaScript objects
+          
+          console.log(result)
+        }
+        catch(error) {
+            console.log(error)
+        }
+        //   setToken(result)
     }
 
     const validate = () => {
@@ -66,8 +93,6 @@ function Login(props) {
     const isDisabled = Object.keys(errors)
                              .filter(key => key !== 'about')
                              .some(key => errors[key])
-
-    console.log(userName, password)
 
     return (
         <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
