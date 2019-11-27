@@ -1,28 +1,19 @@
 
-// MONGODB VARIABLES
-var mongoClient = require('mongodb').MongoClient;
-var uri = process.env.MONGODB_URI;
-var db = null;
-var accountsCollection = null;
-var postsCollection = null;
+// MongoDB package imports
+var mongoose = require('mongoose');
+var mongoDB = process.env.MONGODB_URI;
 
-// Connect to the MongoDB database only once
-mongoClient.connect(uri, { useUnifiedTopology: true }, function(err, client) {
-    if(!err){
-        db = client.db("tindigo_database");
-        accountsCollection = db.collection("account_info");
-        postsCollection = db.collection("post_info");
+// connect to database
+mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true }).then(() => {
+        console.log('mongodb started.');
+        module.exports.database = mongoose.connection;
+    }).catch(() => {
+        console.log('mongodb connection failed');
+        module.exports.database = null;
+    });
 
-
-        module.exports.database = db;
-        module.exports.accountsCollection = accountsCollection;
-        module.exports.postsCollection = postsCollection;
-        console.log("Connected to database successfully.");
-    }
-    else{
-        console.log("Error connecting to database.");
-    }
-});
-
-
-module.exports.mongoClient = mongoClient;
+// export database resources
+module.exports = mongoose;
+module.exports.database = mongoose.connection;
+module.exports.accountsCollection = null;
+module.exports.postsCollection = null;

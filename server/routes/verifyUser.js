@@ -27,7 +27,7 @@ function generateSignAndVerifyOptions(username){
             issuer:  "www.tindigo.com",
             subject:  "teamindigo54@gmail.com",
             audience:  username,
-            expiresIn:  "30d",
+            expiresIn:  "24h",
             algorithm:  "RS256"
            };
 }
