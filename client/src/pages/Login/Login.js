@@ -47,6 +47,7 @@ function Login(props) {
     const handleLogin = async () => {
         const data={ username, password }
         console.log(data)
+        console.log(JSON.stringify(data))
 
         // curl --data "username=johnsmith123&password=yellow1235" http://localhost:3001/account/signin
         // we may want to retrieve the url as a environment variable
@@ -55,7 +56,7 @@ function Login(props) {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'omit', // include, *same-origin, omit
+            credentials: 'same-origin', // include, *same-origin, omit
             headers: {
               'Content-Type': 'application/json'
               // 'Content-Type': 'application/x-www-form-urlencoded',
