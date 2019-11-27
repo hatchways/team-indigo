@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, TextField } from '@material-ui/core'
+import { Container, Grid, TextField, Button } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -19,6 +19,16 @@ function Login(props) {
     const [userName, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
+    const [touched, setTouched] = useState({
+        userName: false,
+        password: false,
+    })
+
+    const handleBlur = event => {
+        const { name } = event.target
+        setTouched({...touched, [name]: true})
+    }
+
     const handleChange = event => {
         const { name, value } = event.target
 
@@ -32,6 +42,30 @@ function Login(props) {
             default:
         }
     }
+
+    const handleLogin = () => {
+        const data={ userName, password }
+        console.log(data)
+    }
+
+    const validate = () => {
+        return {
+            userName: userName.length <= 0,
+            password: password.length <= 0
+        }
+    }
+
+    const errors = validate()
+
+    const shouldMarkError = field => {
+        const hasError = errors[field];
+        const shouldShow = touched[field];
+        return hasError ? shouldShow : false;
+    }
+
+    const isDisabled = Object.keys(errors)
+                             .filter(key => key !== 'about')
+                             .some(key => errors[key])
 
     console.log(userName, password)
 
@@ -47,8 +81,10 @@ function Login(props) {
                 label='User Name'
                 name='userName'
                 value={userName}
+                onBlur={handleBlur}
                 onChange={handleChange}
                 className={classes.textField}
+                helperText={shouldMarkError('userName') ? 'please provide a user name' : ''}
                 margin='normal' />
             </Grid>
 
@@ -58,9 +94,23 @@ function Login(props) {
                 label='Password'
                 name='password'
                 value={password}
+                onBlur={handleBlur}
                 onChange={handleChange}
                 className={classes.textField}
+                helperText={shouldMarkError('password') ? 'please provide a password' : ''}
                 margin='normal' />
+            </Grid>
+
+            <Grid container>
+                <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                size='large'
+                disabled={isDisabled}
+                onClick={handleLogin} >
+                    Login
+                </Button>
             </Grid>
         </Container>
     )
