@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, TextField, Button } from '@material-ui/core'
+import { postData } from '../../utilities/API'
 
 const useStyles = makeStyles(theme => ({
     textField: {
@@ -46,30 +47,10 @@ function Login(props) {
 
     const handleLogin = async () => {
         const data={ username, password }
-        console.log(data)
-        console.log(JSON.stringify(data))
-
-        // curl --data "username=johnsmith123&password=yellow1235" http://localhost:3001/account/signin
-        // we may want to retrieve the url as a environment variable
         try {
-        const response = await fetch('/account/signin', {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, *cors, same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-              'Content-Type': 'application/json'
-              // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client
-            body: JSON.stringify(data) // body data type must match "Content-Type" header
-          })
-          
-          const result = await response.json() // parses JSON response into native JavaScript objects
-          
-          if (result.message === 'success') setToken(result.token)
-          else console.log(result)
+            const result = await postData('/account/signin', data)
+            if (result.message === 'success') setToken(result.token)
+            else console.log(result)
         }
         catch(error) {
             console.log(error)
@@ -95,7 +76,7 @@ function Login(props) {
                              .filter(key => key !== 'about')
                              .some(key => errors[key])
 
-    // console.log(token)
+    if (token) console.log(token)
 
     return (
         <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
