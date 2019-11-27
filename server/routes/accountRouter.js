@@ -133,14 +133,14 @@ router.post("/account/signin", function(req, res, next) {
         AccountModel.findOne(query).select('+password').exec(function(db_err, db_res) {
               if (db_err) res.status(400).send({ message : "bad request" });
               else {
-                  if(db_res.password === signInPassword){
+                  if(db_res && db_res.password === signInPassword){
                       // Correct password
                       res.status(200).send({token : userAuthentication.generateToken(signInUsername),
                                             message : "success"});
                   }
                   else {
                       // Incorrect password
-                      res.status(403).send({message : "incorrect password"});
+                      res.status(403).send({message : "incorrect username or password"});
                   }
               }
         });
