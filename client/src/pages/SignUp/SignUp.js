@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, TextField, Button } from '@material-ui/core'
 
-// const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 const useStyles = makeStyles(theme => ({
@@ -21,18 +20,18 @@ function SignUp(props) {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [about, setAbout] = useState('')
-    const [userName, setUserName] = useState('')
+    const [emailAddress, setEmailAddress] = useState('')
+    const [aboutMe, setAboutMe] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPass, setConfirmPass] = useState('')
 
     const [touched, setTouched] = useState({
         firstName: false,
         lastName: false,
-        email: false,
-        about: false,
-        userName: false,
+        emailAddress: false,
+        aboutMe: false,
+        username: false,
         password: false,
         confirmPass: false
     })
@@ -52,14 +51,14 @@ function SignUp(props) {
             case 'lastName':
                 setLastName(value)
                 break
-            case 'email':
-                setEmail(value)
+            case 'emailAddress':
+                setEmailAddress(value)
                 break
-            case 'about':
-                setAbout(value)
+            case 'aboutMe':
+                setAboutMe(value)
                 break
-            case 'userName':
-                setUserName(value)
+            case 'username':
+                setUsername(value)
                 break
             case 'password':
                 setPassword(value)
@@ -72,14 +71,14 @@ function SignUp(props) {
     }
 
     const handleSignUp = () => {
-        const data={ firstName, lastName, email, about, userName, password }
+        const data={ firstName, lastName, emailAddress, aboutMe, username, password }
         console.log(data)
     }
 
     const validateEmail = () => {
-        const email = document.getElementById('email')
-        if (email) {
-            const { value } = email
+        const emailAddress = document.getElementById('emailAddress')
+        if (emailAddress) {
+            const { value } = emailAddress
             if (value) return value.match(emailRegex)
         }
         return false
@@ -89,9 +88,9 @@ function SignUp(props) {
         return {
             firstName: firstName.length <= 0,
             lastName: lastName.length <= 0,
-            email: email.length <= 0 || ! validateEmail(),
-            about: about.length <= 0,
-            userName: userName.length <= 0,
+            emailAddress: emailAddress.length <= 0 || ! validateEmail(),
+            aboutMe: aboutMe.length <= 0,
+            username: username.length <= 0,
             password: password.length <= 0,
             confirmPass: confirmPass.length <= 0,
             passwordMatch: password !== confirmPass
@@ -107,11 +106,8 @@ function SignUp(props) {
     }
 
     const isDisabled = Object.keys(errors)
-                             .filter(key => key !== 'about')
+                             .filter(key => key !== 'aboutMe')
                              .some(key => errors[key])
-
-    console.log(validateEmail())
-    // console.log(firstName, lastName, email, about, userName, password, confirmPass, password.length > 0 && password === confirmPass)
 
     return (
         <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
@@ -147,27 +143,27 @@ function SignUp(props) {
 
             <Grid container>
                 <TextField
-                id='email'
+                id='emailAddress'
                 label='Email Address'
-                name='email'
-                value={email}
+                name='emailAddress'
+                value={emailAddress}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 className={classes.textField}
-                helperText={shouldMarkError('email') ? 'please provide a valid email address' : ''}
+                helperText={shouldMarkError('emailAddress') ? 'please provide a valid email address' : ''}
                 margin='normal' />
             </Grid>
 
             <Grid container>
                 <TextField
-                id='about'
-                label='About'
-                name='about'
-                value={about}
+                id='aboutMe'
+                label='AboutMe'
+                name='aboutMe'
+                value={aboutMe}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 className={classes.textField}
-                helperText={shouldMarkError('about') ? 'a description about you is not required' : ''}
+                helperText={shouldMarkError('aboutMe') ? 'a description about you is not required' : ''}
                 margin='normal' />
             </Grid>
 
@@ -175,12 +171,12 @@ function SignUp(props) {
                 <TextField
                 id='user-name'
                 label='User Name'
-                name='userName'
-                value={userName}
+                name='username'
+                value={username}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 className={classes.textField}
-                helperText={shouldMarkError('userName') ? 'please provide a user name' : ''}
+                helperText={shouldMarkError('username') ? 'please provide a user name' : ''}
                 margin='normal' />
             </Grid>
 
