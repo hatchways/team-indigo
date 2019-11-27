@@ -72,7 +72,7 @@ function SignUp(props) {
     }
 
     const handleSignUp = () => {
-        const data={firstName, lastName, email, about, userName, password}
+        const data={ firstName, lastName, email, about, userName, password }
         console.log(data)
     }
 
