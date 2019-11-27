@@ -16,12 +16,12 @@ const useStyles = makeStyles(theme => ({
 function Login(props) {
     const classes=useStyles()
 
-    const [userName, setUsername] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [token, setToken] = useState(null)
 
     const [touched, setTouched] = useState({
-        userName: false,
+        username: false,
         password: false,
     })
 
@@ -34,7 +34,7 @@ function Login(props) {
         const { name, value } = event.target
 
         switch(name) {
-            case 'userName':
+            case 'username':
                 setUsername(value)
                 break
             case 'password':
@@ -45,13 +45,13 @@ function Login(props) {
     }
 
     const handleLogin = async () => {
-        const data={ userName, password }
+        const data={ username, password }
         console.log(data)
 
         // curl --data "username=johnsmith123&password=yellow1235" http://localhost:3001/account/signin
         // we may want to retrieve the url as a environment variable
         try {
-        const response = await fetch('http://localhost:3001/account/signin', {
+        const response = await fetch('/account/signin', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -67,17 +67,17 @@ function Login(props) {
           
           const result = await response.json() // parses JSON response into native JavaScript objects
           
-          console.log(result)
+          if (result.message === 'success') setToken(result.token)
+          else console.log(result)
         }
         catch(error) {
             console.log(error)
         }
-        //   setToken(result)
     }
 
     const validate = () => {
         return {
-            userName: userName.length <= 0,
+            username: username.length <= 0,
             password: password.length <= 0
         }
     }
@@ -94,6 +94,8 @@ function Login(props) {
                              .filter(key => key !== 'about')
                              .some(key => errors[key])
 
+    // console.log(token)
+
     return (
         <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
             <Grid container>
@@ -104,12 +106,12 @@ function Login(props) {
                 <TextField
                 id='user-name'
                 label='User Name'
-                name='userName'
-                value={userName}
+                name='username'
+                value={username}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 className={classes.textField}
-                helperText={shouldMarkError('userName') ? 'please provide a user name' : ''}
+                helperText={shouldMarkError('username') ? 'please provide a user name' : ''}
                 margin='normal' />
             </Grid>
 
