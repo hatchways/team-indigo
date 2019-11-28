@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, TextField, Button } from '@material-ui/core'
 
+import { postData } from '../../utilities/API'
+
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 const useStyles = makeStyles(theme => ({
@@ -25,6 +27,8 @@ function SignUp(props) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPass, setConfirmPass] = useState('')
+
+    const [token, setToken] = useState(null)
 
     const [touched, setTouched] = useState({
         firstName: false,
@@ -70,9 +74,16 @@ function SignUp(props) {
         }
     }
 
-    const handleSignUp = () => {
-        const data={ firstName, lastName, emailAddress, aboutMe, username, password }
-        console.log(data)
+    const handleSignUp = async () => {
+        try {
+            const data={ firstName, lastName, emailAddress, aboutMe, username, password }
+            const result = await postData('/account/u', data)
+            if (result.message === 'success') setToken(result.token)
+            else console.log(result)
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 
     const validateEmail = () => {
@@ -109,6 +120,8 @@ function SignUp(props) {
                              .filter(key => key !== 'aboutMe')
                              .some(key => errors[key])
 
+    if (token) console.log(token)
+    
     return (
         <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
             <Grid container>
@@ -156,8 +169,8 @@ function SignUp(props) {
 
             <Grid container>
                 <TextField
-                id='aboutMe'
-                label='AboutMe'
+                id='about'
+                label='About'
                 name='aboutMe'
                 value={aboutMe}
                 onBlur={handleBlur}
