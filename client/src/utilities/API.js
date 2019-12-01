@@ -16,7 +16,7 @@ export const postData = async (url, data) => {
       return await response.json() // parses JSON response into native JavaScript objects
 }
 
-export const getData = async (url, username, token) => {
+export const getData = async (url, token) => {
   const response = await fetch(url, {
     method: 'GET',
     mode: 'cors',
@@ -27,7 +27,7 @@ export const getData = async (url, username, token) => {
     },
     redirect: 'follow',
     referrer: 'no-referrer',
-    authorization : `${username} ${token}`
+    Authorization : `Bearer ${token}`
   })
 
   return await response.json()

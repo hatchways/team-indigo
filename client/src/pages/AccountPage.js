@@ -52,7 +52,7 @@ function AccountPage(props) {
 
     const getUserInfo = async username => {
         const url = `/account/u/:${username}`
-        const data = await getData(url, username, token)
+        const data = await getData(url, token)
         console.log(data)
     }
 
