@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { setUser } from '../../redux/actions/user'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, TextField, Button } from '@material-ui/core'
 import { postData } from '../../utilities/API'
@@ -15,11 +18,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Login(props) {
+
+    const user = useSelector(state => state.user)
+    const dispatch = useDispatch();
+
+    if (user) console.log('from store:', user.username, user.token)
+
     const classes=useStyles()
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [token, setToken] = useState(null)
 
     const [touched, setTouched] = useState({
         username: false,
@@ -49,8 +57,11 @@ function Login(props) {
         const data={ username, password }
         try {
             const result = await postData('/account/signin', data)
-            if (result.message === 'success') setToken(result.token)
+            if (result.message === 'success') {
+                dispatch(setUser(username, result.token))
+            }
             else console.log(result)
+
         }
         catch(error) {
             console.log(error)
@@ -75,8 +86,6 @@ function Login(props) {
     const isDisabled = Object.keys(errors)
                              .filter(key => key !== 'about')
                              .some(key => errors[key])
-
-    if (token) console.log(token)
 
     return (
         <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
@@ -121,6 +130,8 @@ function Login(props) {
                     Login
                 </Button>
             </Grid>
+
+            <Link to='/account'>Account Page</Link>
         </Container>
     )
 }

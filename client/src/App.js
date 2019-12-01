@@ -1,6 +1,8 @@
 import "./App.css";
 
 import React from "react";
+// import { useSelector, useDispatch } from 'react-redux'
+
 import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route } from "react-router-dom";
 
@@ -15,6 +17,12 @@ import SignUp from './pages/SignUp/SignUp';
 import Login from "./pages/Login/Login";
 
 function App() {
+
+  // const user = useSelector(state => state.user)
+  // const dispatch = useDispatch();
+
+  // console.log(user.username, user.token)
+  
   return (
     <MuiThemeProvider theme={theme}>
       <Header />

@@ -15,3 +15,20 @@ export const postData = async (url, data) => {
       
       return await response.json() // parses JSON response into native JavaScript objects
 }
+
+export const getData = async (url, username, token) => {
+  const response = await fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrer: 'no-referrer',
+    authorization : `${username} ${token}`
+  })
+
+  return await response.json()
+}

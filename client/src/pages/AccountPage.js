@@ -1,4 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux'
+
+import { getData } from '../utilities/API'
 
 import {Avatar} from '@material-ui/core';
 
@@ -34,12 +37,27 @@ var userNameStyle = {
     fontSize: 'x-large'
 };
 
-
 function UserPosts() {
     return <div></div>;
 }
 
-function AccountPage({props}) {
+function AccountPage(props) {
+
+    const state = useSelector(state => state)
+    let username, token
+    if (state.user) {
+        username = state.user.username
+        token = state.user.token
+    }
+
+    const getUserInfo = async username => {
+        const url = `/account/u/:${username}`
+        const data = await getData(url, username, token)
+        console.log(data)
+    }
+
+    if(username) getUserInfo(username)
+    
     return (
         <>
             <div style={{height: '64px'}}></div>
@@ -48,7 +66,7 @@ function AccountPage({props}) {
                     <Avatar style={avatarStyle}/>
                     <div style={userBioStyle}>
                         <span style={nameStyle}>(First Last)</span>
-                        <span style={userNameStyle}>(@username)</span>
+                        <span style={userNameStyle}>{ username ? username : '(@username)' }</span>
                         <span style={{fontWeight: 'bold'}}>About Me</span>
                         <span>I am a really cool person.</span>
                     </div>
