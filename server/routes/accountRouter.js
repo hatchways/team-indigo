@@ -23,7 +23,7 @@ If user is signed in, insert authorization header in the following format:
 Authorization : Bearer <AUTHORIZATION TOKEN>
 */
 router.get("/account/u/:username", function(req, res, next) {
-    if(mongo.database == null) res.status(400).send({ message : "error connecting to database..." });
+    if(mongo.database == null) res.status(500).send({ message : "error connecting to database..." });
     else{
         var requestedUsername = req.params.username;
         var query = { username : requestedUsername };
@@ -34,7 +34,7 @@ router.get("/account/u/:username", function(req, res, next) {
             databaseCursor = databaseCursor.select('+password').select('+emailAddress');
         }
         databaseCursor.exec( function(db_err, db_res) {
-            if (db_err) res.status(400).send({ message : "invalid request" });
+            if (db_err || db_res == null) res.status(400).send({ message : "invalid request" });
             else res.status(202).send({
                 data : db_res,
                 message : "success"
@@ -55,7 +55,7 @@ Authorization : Bearer <AUTHORIZATION TOKEN>
 
 */
 router.put("/account/u/:username", function(req, res, next) {
-    if(mongo.database == null) res.status(400).send({ message : "error connecting to database..." });
+    if(mongo.database == null) res.status(500).send({ message : "error connecting to database..." });
     else{
         var requestedUsername = req.params.username;
 
@@ -83,8 +83,9 @@ router.put("/account/u/:username", function(req, res, next) {
 Handle POST request for account creation.
 Endpoint: .../account/u
 
-@params Pass account information in req.body
+@params Pass account information in req.body.
         firstName, lastName, username, password, emailAddress are required fields.
+        username must be unique.
 @return {token : <AUTHORIZATION TOKEN>, message : "success"} if created account successfully.
         HTTP Response Code 500 if error connecting to MongoDB
         HTTP Response Code 422 if invalid account information
