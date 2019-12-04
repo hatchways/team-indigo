@@ -13,7 +13,7 @@ export const postData = async (url, data) => {
         body: JSON.stringify(data) // body data type must match "Content-Type" header
     })
       
-      return await response.json() // parses JSON response into native JavaScript objects
+    return await response.json() // parses JSON response into native JavaScript objects
 }
 
 export const getData = async (url, token) => {
