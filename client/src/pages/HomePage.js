@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../components/Header';
 
 function UserPosts() {
     return <div></div>;
@@ -28,7 +27,6 @@ var postsMessageStyle = {
 function HomePage({props}) {
     return (
         <>
-            <Header />
             <div style={{height: '64px'}}></div>
             <div style={mainGridStyle}>
                 <span style={welcomeMessageStyle}>

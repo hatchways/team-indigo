@@ -128,7 +128,7 @@ const PostCreate = props => {
     }
 
     return (
-        <Container maxWidth='sm'>
+        <Container style={{ marginTop: '75px'}} maxWidth='sm'>
             <h1>Create a Poll</h1>
             <form className={classes.container} noValidate autoComplete='off'>
                 
