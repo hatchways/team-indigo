@@ -96,7 +96,6 @@ function SignUp(props) {
                 dispatch(setUser(username, result.token))
                 window.sessionStorage.username=username
                 window.sessionStorage.token=result.token
-                redirectToTarget('/')
             }
             else console.log(result)
         }
