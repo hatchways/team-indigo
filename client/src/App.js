@@ -17,12 +17,6 @@ import SignUp from './pages/SignUp/SignUp';
 import Login from "./pages/Login/Login";
 
 function App() {
-
-  // const user = useSelector(state => state.user)
-  // const dispatch = useDispatch();
-
-  // console.log(user.username, user.token)
-  
   return (
     <MuiThemeProvider theme={theme}>
       <Header />
