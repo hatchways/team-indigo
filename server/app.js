@@ -22,7 +22,6 @@ app.use(express.static(join(__dirname, "public")));
 app.use(accountRouter);
 app.use(postRouter);
 app.use("/ping", pingRouter);
-//app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
