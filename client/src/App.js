@@ -19,8 +19,8 @@ import Login from "./pages/Login/Login";
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
-      <Header />
       <BrowserRouter>
+        <Header />
         <Route exact path="/" component={HomePage} />
         <Route path="/account" component={AccountPage} />
         <Route path="/post/create" component={PostCreate} />
