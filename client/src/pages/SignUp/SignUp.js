@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, TextField, Button } from '@material-ui/core'
 
+import { setUser } from '../../redux/actions/user'
 import { postData } from '../../utilities/API'
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -18,6 +21,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SignUp(props) {
+    const dispatch = useDispatch()
+
+    const redirectToTarget = (path) => {
+        props.history.push(path)
+    }
+
+    if (window.sessionStorage.username) {
+        const username = window.sessionStorage.username
+        const token = window.sessionStorage.token
+        dispatch(setUser(username, token))
+        redirectToTarget('/')
+    }
+
     const classes = useStyles()
 
     const [firstName, setFirstName] = useState('')
@@ -27,8 +43,6 @@ function SignUp(props) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPass, setConfirmPass] = useState('')
-
-    const [token, setToken] = useState(null)
 
     const [touched, setTouched] = useState({
         firstName: false,
@@ -78,7 +92,13 @@ function SignUp(props) {
         try {
             const data={ firstName, lastName, emailAddress, aboutMe, username, password }
             const result = await postData('/account/u', data)
-            if (result.message === 'success') setToken(result.token)
+            if (result.message === 'success') {
+                // setToken(result.token)
+                dispatch(setUser(username, result.token))
+                window.sessionStorage.username=username
+                window.sessionStorage.token=result.token
+                redirectToTarget('/')
+            }
             else console.log(result)
         }
         catch (error) {
@@ -120,8 +140,6 @@ function SignUp(props) {
                              .filter(key => key !== 'aboutMe')
                              .some(key => errors[key])
 
-    if (token) console.log(token)
-    
     return (
         <Container style={{ marginTop: '75px', marginLeft: '20%' }}>
             <Grid container>
@@ -234,4 +252,4 @@ function SignUp(props) {
     )
 }
 
-export default SignUp
+export default withRouter(SignUp)

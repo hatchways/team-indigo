@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUser } from '../../redux/actions/user'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, TextField, Button } from '@material-ui/core'
@@ -18,11 +18,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Login(props) {
-
-    const user = useSelector(state => state.user)
     const dispatch = useDispatch();
 
-    if (user) console.log('from store:', user.username, user.token)
+    const redirectToTarget = (path) => {
+        props.history.push(path);
+    }
+
+    if (window.sessionStorage.username) {
+        const username = window.sessionStorage.username
+        const token = window.sessionStorage.token
+        dispatch(setUser(username, token))
+        redirectToTarget('/')
+    }
 
     const classes=useStyles()
 
@@ -51,10 +58,6 @@ function Login(props) {
                 break
             default:
         }
-    }
-
-    const redirectToTarget = (path) => {
-        props.history.push(path);
     }
 
     const handleLogin = async () => {
