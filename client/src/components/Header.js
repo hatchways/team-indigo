@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from '../assets/images/Logo_house.svg'
 
 import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -10,21 +9,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
-// var headerStyle = {
-//     width: '100vw',
-//     height: '64px',
-//     backgroundColor: '#3399ff',
-// };
-
-// var toolbarStyle = {
-//     height: 'inherit',
-//     justifyContent: 'space-between'
-// };
-
-// var logoStyle = {
-//     height: 'inherit'
-// };
 
 const useStyles = makeStyles(theme => ({
     grow: {
