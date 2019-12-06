@@ -93,7 +93,6 @@ function SignUp(props) {
             const data={ firstName, lastName, emailAddress, aboutMe, username, password }
             const result = await postData('/account/u', data)
             if (result.message === 'success') {
-                // setToken(result.token)
                 dispatch(setUser(username, result.token))
                 window.sessionStorage.username=username
                 window.sessionStorage.token=result.token
