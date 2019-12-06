@@ -1,13 +1,3 @@
-
-/*import createError from "http-errors";
-import express, { json, urlencoded } from "express";
-import { join } from "path";
-import cookieParser from "cookie-parser";
-import logger from "morgan";
-
-import indexRouter from "./routes/index";
-import pingRouter from "./routes/ping";
-*/
 var createError = require("http-errors");
 var express = require("express");
 var json = express.json;
