@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from '../../redux/actions/user'
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,12 +53,19 @@ function Login(props) {
         }
     }
 
+    const redirectToTarget = (path) => {
+        props.history.push(path);
+    }
+
     const handleLogin = async () => {
         const data={ username, password }
         try {
             const result = await postData('/account/signin', data)
             if (result.message === 'success') {
                 dispatch(setUser(username, result.token))
+                window.sessionStorage.username=username
+                window.sessionStorage.token=result.token
+                redirectToTarget('/')
             }
             else console.log(result)
 
@@ -130,10 +137,8 @@ function Login(props) {
                     Login
                 </Button>
             </Grid>
-
-            <Link to='/account'>Account Page</Link>
         </Container>
     )
 }
 
-export default Login
+export default withRouter(Login)
