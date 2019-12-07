@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { getData } from '../utilities/API'
@@ -76,6 +77,7 @@ function AccountPage(props) {
                     <UserPosts />
                 </div>
             </div>
+            <Link to='/'>Home</Link>
         </>
     );
 }
