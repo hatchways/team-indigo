@@ -8,9 +8,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+// import AccountCircle from '@material-ui/icons/AccountCircle';
+// import MailIcon from '@material-ui/icons/Mail';
+// import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles(theme => ({
@@ -84,15 +84,13 @@ const useStyles = makeStyles(theme => ({
   }));
 
 function Header({props}) {
-
-
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isLoggedIn = Boolean(window.sessionStorage.username)
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -128,53 +126,66 @@ function Header({props}) {
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton color="inherit">
-          <Badge color="secondary">
-            <ExitToAppIcon />
-          </Badge>
-        </IconButton>
-        <Link className={classes.mobileMenuLink} to='/login'>Login</Link>
-      </MenuItem>
-      <MenuItem>
-        <IconButton color="inherit">
-          <Badge color="secondary">
-            <PersonAddIcon />
-          </Badge>
-        </IconButton>
-        <Link className={classes.mobileMenuLink} to='/signup'>Sign Up</Link>
-      </MenuItem>
-      {/* <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem> */}
-      {/* <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
+
+
+  const handleLogout = () => {
+    console.log('logging out')
+  }
+
+  const renderMobileMenu = () => {
+    if (isLoggedIn) {
+      return (
+        <Menu
+          anchorEl={mobileMoreAnchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          id={mobileMenuId}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={isMobileMenuOpen}
+          onClose={handleMobileMenuClose}
         >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem> */}
-    </Menu>
-  );
+          <MenuItem>
+            <IconButton color="inherit">
+              <Badge color="secondary">
+                <ExitToAppIcon />
+              </Badge>
+            </IconButton>
+            <Button onClick={handleLogout}>Logout</Button>
+          </MenuItem>
+        </Menu>
+      )
+    }
+    else {
+      return (
+        <Menu
+          anchorEl={mobileMoreAnchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          id={mobileMenuId}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={isMobileMenuOpen}
+          onClose={handleMobileMenuClose}
+        >
+          <MenuItem>
+            <IconButton color="inherit">
+              <Badge color="secondary">
+                <ExitToAppIcon />
+              </Badge>
+            </IconButton>
+            <Link className={classes.mobileMenuLink} to='/login'>Login</Link>
+          </MenuItem>
+          <MenuItem>
+            <IconButton color="inherit">
+              <Badge color="secondary">
+                <PersonAddIcon />
+              </Badge>
+            </IconButton>
+            <Link className={classes.mobileMenuLink} to='/signup'>Sign Up</Link>
+          </MenuItem>
+        </Menu>
+      )
+    }
+  }
 
   return (
     <div className={classes.grow}>
@@ -205,7 +216,30 @@ function Header({props}) {
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
+
+          {isLoggedIn ? (
+            <div className={classes.sectionDesktop}>
+              <Button onClick={handleLogout} color="inherit">
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <div className={classes.sectionDesktop}>
+              <Button color="inherit">
+                <Link className={classes.desktopMenuLink} to='/login'>
+                  Login
+                </Link>
+              </Button>
+
+              <Button color="inherit">
+                <Link className={classes.desktopMenuLink} to='/signup'>
+                  Sign Up
+                </Link>
+              </Button>
+            </div>
+          )}
+
+          {/* <div className={classes.sectionDesktop}>
             <Button color="inherit">
               <Link className={classes.desktopMenuLink} to='/login'>
                 Login
@@ -217,28 +251,8 @@ function Header({props}) {
                 Sign Up
               </Link>
             </Button>
+          </div> */}
 
-            {/* <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
-            {/* <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton> */}
-          </div>
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -252,7 +266,7 @@ function Header({props}) {
           </div>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+      {renderMobileMenu()}
       {renderMenu}
     </div>
   );
