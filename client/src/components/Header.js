@@ -147,13 +147,13 @@ function Header(props) {
           open={isMobileMenuOpen}
           onClose={handleMobileMenuClose}
         >
-          <MenuItem>
+          <MenuItem onClick={handleLogout}>
             <IconButton color="inherit">
               <Badge color="secondary">
                 <ExitToAppIcon />
               </Badge>
             </IconButton>
-            <Button onClick={handleLogout}>Logout</Button>
+            <p>Logout</p>
           </MenuItem>
         </Menu>
       )
