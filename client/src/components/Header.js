@@ -200,7 +200,7 @@ function Header({props}) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            Tindigo
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -218,40 +218,29 @@ function Header({props}) {
           <div className={classes.grow} />
 
           {isLoggedIn ? (
+
             <div className={classes.sectionDesktop}>
               <Button onClick={handleLogout} color="inherit">
                 Logout
               </Button>
             </div>
+
           ) : (
+
             <div className={classes.sectionDesktop}>
               <Button color="inherit">
                 <Link className={classes.desktopMenuLink} to='/login'>
                   Login
                 </Link>
               </Button>
-
               <Button color="inherit">
                 <Link className={classes.desktopMenuLink} to='/signup'>
                   Sign Up
                 </Link>
               </Button>
             </div>
+
           )}
-
-          {/* <div className={classes.sectionDesktop}>
-            <Button color="inherit">
-              <Link className={classes.desktopMenuLink} to='/login'>
-                Login
-              </Link>
-            </Button>
-
-            <Button color="inherit">
-              <Link className={classes.desktopMenuLink} to='/signup'>
-                Sign Up
-              </Link>
-            </Button>
-          </div> */}
 
           <div className={classes.sectionMobile}>
             <IconButton
