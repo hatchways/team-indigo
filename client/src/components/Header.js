@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
 import { AppBar, Toolbar, IconButton, Typography, InputBase, Badge, MenuItem, Menu, Button } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-function Header({props}) {
+function Header(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -127,9 +127,14 @@ function Header({props}) {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
+  const redirectToTarget = (path) => {
+    props.history.push(path);
+  }
 
   const handleLogout = () => {
-    console.log('logging out')
+    window.sessionStorage.removeItem('token')
+    window.sessionStorage.removeItem('username')
+    redirectToTarget('/login')
   }
 
   const renderMobileMenu = () => {
@@ -261,4 +266,4 @@ function Header({props}) {
   );
 }
 
-export default Header;
+export default withRouter(Header);
