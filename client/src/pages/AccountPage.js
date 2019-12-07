@@ -77,7 +77,6 @@ function AccountPage(props) {
                     <UserPosts />
                 </div>
             </div>
-            <Link to='/'>Home</Link>
         </>
     );
 }

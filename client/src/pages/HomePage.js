@@ -48,7 +48,6 @@ function HomePage({props}) {
                 <span style={postsMessageStyle}>Popular Posts</span>
                 <PopularPosts />
             </div>
-            <Link to='/account'>Account</Link>
         </>
     );
 }
