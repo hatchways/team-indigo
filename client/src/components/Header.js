@@ -93,11 +93,9 @@ const useStyles = makeStyles(theme => ({
 
 function Header(props) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [sideBar, setSideBar] = React.useState(false)
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isLoggedIn = Boolean(window.sessionStorage.username)
 
@@ -109,17 +107,8 @@ function Header(props) {
     setSideBar(open);
   };
 
-  const handleProfileMenuOpen = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
   const handleMobileMenuOpen = event => {
@@ -291,16 +280,17 @@ function Header(props) {
           ) : (
 
             <div className={classes.sectionDesktop}>
-              <Button color="inherit">
-                <Link className={classes.desktopMenuLink} to='/login'>
-                  Login
-                </Link>
-              </Button>
-              <Button color="inherit">
-                <Link className={classes.desktopMenuLink} to='/signup'>
-                  Sign Up
-                </Link>
-              </Button>
+              <Link className={classes.desktopMenuLink} to='/login'>
+                <Button color="inherit">
+                    Login
+                </Button>
+              </Link>
+
+              <Link className={classes.desktopMenuLink} to='/signup'>
+                <Button color="inherit">
+                    Sign Up
+                </Button>
+              </Link>
             </div>
 
           )}
