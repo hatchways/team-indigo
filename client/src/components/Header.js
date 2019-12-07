@@ -107,6 +107,7 @@ function Header(props) {
   };
 
   const menuId = 'primary-search-account-menu';
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -168,22 +169,26 @@ function Header(props) {
           open={isMobileMenuOpen}
           onClose={handleMobileMenuClose}
         >
-          <MenuItem>
-            <IconButton color="inherit">
-              <Badge color="secondary">
-                <ExitToAppIcon />
-              </Badge>
-            </IconButton>
-            <Link className={classes.mobileMenuLink} to='/login'>Login</Link>
-          </MenuItem>
-          <MenuItem>
-            <IconButton color="inherit">
-              <Badge color="secondary">
-                <PersonAddIcon />
-              </Badge>
-            </IconButton>
-            <Link className={classes.mobileMenuLink} to='/signup'>Sign Up</Link>
-          </MenuItem>
+          <Link className={classes.mobileMenuLink} to='/login'>
+            <MenuItem>
+              <IconButton color="inherit">
+                <Badge color="secondary">
+                  <ExitToAppIcon />
+                </Badge>
+              </IconButton>
+              <p>Login</p>
+            </MenuItem>
+          </Link>
+          <Link className={classes.mobileMenuLink} to='/signup'>
+            <MenuItem>
+              <IconButton color="inherit">
+                <Badge color="secondary">
+                  <PersonAddIcon />
+                </Badge>
+              </IconButton>
+              <p>Sign Up</p>
+            </MenuItem>
+          </Link>
         </Menu>
       )
     }
@@ -258,7 +263,6 @@ function Header(props) {
         </Toolbar>
       </AppBar>
       {renderMobileMenu()}
-      {renderMenu}
     </div>
   );
 }
