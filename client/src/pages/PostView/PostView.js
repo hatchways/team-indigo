@@ -31,7 +31,7 @@ const options=[
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
-      marginTop: 75,
+      marginTop: 30
     },
     button: {
         margin: theme.spacing(1),
