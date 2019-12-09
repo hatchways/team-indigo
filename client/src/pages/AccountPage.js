@@ -1,83 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
-import { getData } from '../utilities/API'
-
-import {Avatar} from '@material-ui/core';
-
-var mainGridStyle = {
-    display: 'grid',
-    fontFamily: 'Roboto',
-    paddingTop: '5vh',
-    paddingLeft: '2vw'
-};
-
-var userInformationStyle = {
-    display: 'flex',
-    marginBottom: '20vh'
-};
-
-var avatarStyle = {
-    width: '200px',
-    height: '200px',
-    marginLeft: '15vw',
-    marginRight: '5vw'
-};
-
-var userBioStyle = {
-    display: 'grid'
-};
-
-var nameStyle = {
-    fontWeight: 'Bold',
-    fontSize: 'xx-large'
-};
-
-var userNameStyle = {
-    fontSize: 'x-large'
-};
-
-function UserPosts() {
-    return <div></div>;
-}
+import { Container, Grid } from '@material-ui/core';
 
 function AccountPage(props) {
 
-    const state = useSelector(state => state)
-    let username, token
-    if (state.user) {
-        username = state.user.username
-        token = state.user.token
+    let username
+    if (window.sessionStorage.username) {
+        username = window.sessionStorage.username
     }
 
-    const getUserInfo = async username => {
-        const url = `/account/u/${username}`
-        const data = await getData(url, token)
-        console.log(data)
-    }
-
-    if(username) getUserInfo(username)
-    
     return (
-        <>
-            <div style={{height: '64px'}}></div>
-            <div style={mainGridStyle}>
-                <div style={userInformationStyle} className="userInformation">
-                    <Avatar style={avatarStyle}/>
-                    <div style={userBioStyle}>
-                        <span style={nameStyle}>(First Last)</span>
-                        <span style={userNameStyle}>{ username ? username : '(@username)' }</span>
-                        <span style={{fontWeight: 'bold'}}>About Me</span>
-                        <span>I am a really cool person.</span>
-                    </div>
-                </div>
-                <div className="userPosts">
-                    <span>Posts by (Name)</span>
-                    <UserPosts />
-                </div>
-            </div>
-        </>
+        <Container>
+            <Grid container>
+                <Grid item xs={12}>
+                    <h1>
+                        {username ?
+                        `Welcome back ${username}` :
+                        'New here? Create an account!'}
+                    </h1>
+                </Grid>
+            </Grid>
+            {username ? (
+                <Grid container>
+                    <Grid item xs={12}>
+                        <h1>Your Posts</h1>
+                    </Grid>
+                    {/* map each post */}
+                    <Grid item xs={12}>
+                        {/* return some question component  */}
+                        <h2>Question goes here?</h2>
+                        <p>yes - 63%</p>
+                        <p>no - 47%</p>
+                    </Grid>
+                </Grid> ) : ''
+            }
+            <Grid container>
+                <Grid item xs={12}>
+                    <h1>Popular Posts</h1>
+                </Grid>
+                {/* map each post */}
+                <Grid item xs={12}>
+                    {/* return some question component  */}
+                    <h2>Another Question placed here?</h2>
+                    <p>yes - 46%</p>
+                    <p>maybe - 12%</p>
+                    <p>no - 42%</p>
+                </Grid>
+            </Grid>
+        </Container>
     );
 }
 
