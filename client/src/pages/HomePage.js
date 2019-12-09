@@ -1,54 +1,43 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 
-function UserPosts() {
-    return <div></div>;
-}
+import { Container, Grid, Avatar } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 
-function PopularPosts() {
-    return <div></div>;
-}
+import profileImage from '../assets/images/profile-pic-placeholder.png'
 
-var mainGridStyle = {
-    'display': 'grid',
-    'fontFamily': 'Roboto',
-    'paddingTop': '5vh',
-    'paddingLeft': '2vw'
-};
-
-var welcomeMessageStyle = {
-    'fontSize': 'xx-large',
-    'marginBottom': '5vh'
-};
-
-var postsMessageStyle = {
-    'fontSize': 'large'
-};
+const useStyles = makeStyles(theme => ({
+    avatar: {
+        margin: 10,
+        width: 200,
+        height: 200,
+    },
+  }));
 
 function HomePage({props}) {
+    const classes = useStyles()
     return (
-        <>
-            <div style={{height: '64px'}}></div>
-            <div style={mainGridStyle}>
-                <span style={welcomeMessageStyle}>
-                    {
-                        props && props.loggedIn
-                            ? `Welcome Back`
-                            : `New here? Create an Account`
-                    }
-                </span>
-                {
-                    props && props.loggedIn
-                    ?   <>
-                            <span style={postsMessageStyle}>Your Posts</span>
-                            <UserPosts />
-                        </>
-                    :   <span style={postsMessageStyle}>You have no Posts</span>
-                }
-                <span style={postsMessageStyle}>Popular Posts</span>
-                <PopularPosts />
-            </div>
-        </>
+        <Container>
+            <h1>Welcome to Tindigo!</h1>
+            <Grid container>
+                <Grid item xs={4}>
+                    <Avatar
+                    alt="Profile Pic Placeholder"
+                    src={profileImage}
+                    className={classes.avatar} />
+                </Grid>
+
+                <Grid item xs={8}>
+                    <h2>Name McNamerson</h2>
+                    <h3>About me</h3>
+                    <p>Fugiat aute dolore dolore aliquip nulla fugiat laboris esse. Exercitation occaecat nulla fugiat magna occaecat ut sit fugiat culpa eu occaecat. Velit qui velit cupidatat anim tempor cillum aliqua ut magna velit ad. Cillum enim et deserunt nostrud ut eiusmod qui elit. Nostrud ea Lorem laborum ea amet elit minim.</p>
+                </Grid>
+            </Grid>
+            <Grid container>
+                <Grid item xs={12}>
+                    <h1>Posts by Some One</h1>
+                </Grid>
+            </Grid>
+        </Container>
     );
 }
 
