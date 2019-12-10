@@ -10,7 +10,7 @@ import { theme } from "./themes/theme";
 
 import Header from './components/Header'
 import HomePage from './pages/HomePage'
-import AccountPage from './pages/AccountPage'
+import LandingPage from './pages/LandingPage'
 import PostCreate from "./pages/PostCreate/PostCreate";
 import PostView from "./pages/PostView/PostView";
 import SignUp from './pages/SignUp/SignUp';
@@ -21,8 +21,8 @@ function App() {
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <Header />
-        <Route exact path="/" component={HomePage} />
-        <Route path="/account" component={AccountPage} />
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/account" component={HomePage} />
         <Route path="/post/create" component={PostCreate} />
         <Route path="/post/view" component={PostView} />
         <Route path='/signup' component={SignUp} />

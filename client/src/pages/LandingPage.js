@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container, Grid } from '@material-ui/core';
 
-function AccountPage(props) {
+function LandingPage(props) {
 
     let username
     if (window.sessionStorage.username) {
@@ -51,4 +51,4 @@ function AccountPage(props) {
     );
 }
 
-export default AccountPage;
+export default LandingPage;

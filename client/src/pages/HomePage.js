@@ -26,7 +26,7 @@ function HomePage(props) {
         username=window.sessionStorage.username
     }
     else {
-        redirectToTarget('/account')
+        redirectToTarget('/')
     }
 
     return (
@@ -48,7 +48,7 @@ function HomePage(props) {
             </Grid>
             <Grid container>
                 <Grid item xs={12}>
-                    <h1>Posts by Some One</h1>
+                    <h1>Your Posts</h1>
                 </Grid>
             </Grid>
         </Container>
