@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom'
 
 import { AppBar, Toolbar, IconButton, Typography, InputBase,
-         Badge, MenuItem, Menu, Button, Drawer, List, Divider,
+         Badge, MenuItem, Menu, Button, Drawer, List,
          ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 
