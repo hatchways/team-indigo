@@ -1,5 +1,6 @@
 import './PostCreate.css'
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core'
 
@@ -9,6 +10,8 @@ import QuestionField from './Fields/Question';
 import DescriptionField from './Fields/Description';
 import VotingOptionsField from './Fields/VotingOptions';
 import ButtonCreatePost from './ButtonCreatePost';
+
+import { postData } from '../../utilities/API'
 
 const visibilityOptions = [
     {
@@ -40,6 +43,19 @@ const visibilityOptions = [
 }));
 
 const PostCreate = props => {
+    const redirectToTarget = (path) => {
+        props.history.push(path);
+    }
+
+    let username, token
+    if (window.sessionStorage.username) {
+        username=window.sessionStorage.username
+        token=window.sessionStorage.token
+    }
+    else {
+        redirectToTarget('/')
+    }
+
     const classes = useStyles();
 
     const [visibility, setVisibility] = React.useState('');
@@ -104,9 +120,23 @@ const PostCreate = props => {
         }
     }
 
-    const handlePost = () => {
-        const post={visibility, tags, question, description, options}
-        console.log(post)
+    const handlePost = async () => {
+        try {
+            const post = {
+                username,
+                visibility,
+                tags,
+                question,
+                description,
+                choices: options
+            }
+            // console.log(post)
+            const result = await postData('/post/id', post, token)
+            console.log(result)
+        }
+        catch (error) {
+            console.error(error)
+        }
     }
 
     const validate = () => {
@@ -185,4 +215,4 @@ const PostCreate = props => {
     )
 }
 
-export default PostCreate
+export default withRouter(PostCreate)
