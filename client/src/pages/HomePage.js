@@ -1,10 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { Container, Grid, Avatar } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 import profileImage from '../assets/images/profile-pic-placeholder.png'
+
+import { getData } from '../utilities/API'
 
 const useStyles = makeStyles(theme => ({
     avatar: {
@@ -21,13 +23,20 @@ function HomePage(props) {
         props.history.push(path);
     }
 
-    let username
+    let username, token
     if (window.sessionStorage.username) {
         username=window.sessionStorage.username
+        token=window.sessionStorage.token
     }
     else {
         redirectToTarget('/')
     }
+
+    const test = async () => {
+        const posts = await getData('/post/search?tag=Gaming', token)
+        console.log(posts)
+    }
+    test()
 
     return (
         <Container>
