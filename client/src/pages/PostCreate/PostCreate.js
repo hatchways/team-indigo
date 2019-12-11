@@ -15,11 +15,11 @@ import { postData } from '../../utilities/API'
 
 const visibilityOptions = [
     {
-      value: 'public',
+      value: 'everyone',
       label: 'Public',
     },
     {
-      value: 'group-only',
+      value: 'group',
       label: 'Group only',
     }
   ];
