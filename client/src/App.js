@@ -9,7 +9,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { theme } from "./themes/theme";
 
 import Header from './components/Header'
-import HomePage from './pages/HomePage'
+import ProfilePage from './pages/ProfilePage'
 import LandingPage from './pages/LandingPage'
 import PostCreate from "./pages/PostCreate/PostCreate";
 import PostView from "./pages/PostView/PostView";
@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Route exact path="/" component={LandingPage} />
-        <Route path="/account" component={HomePage} />
+        <Route path="/profile" component={ProfilePage} />
         <Route path="/post/create" component={PostCreate} />
         <Route path="/post/view" component={PostView} />
         <Route path='/signup' component={SignUp} />
