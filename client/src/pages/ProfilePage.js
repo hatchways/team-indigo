@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-function HomePage(props) {
+function ProfilePage(props) {
     const classes = useStyles()
 
     const redirectToTarget = (path) => {
@@ -64,4 +64,4 @@ function HomePage(props) {
     );
 }
 
-export default withRouter(HomePage);
+export default withRouter(ProfilePage);
