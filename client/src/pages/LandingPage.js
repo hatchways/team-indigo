@@ -1,4 +1,7 @@
+import './LandingPage.css'
+
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 import { Container, Grid } from '@material-ui/core';
 
@@ -16,7 +19,7 @@ function LandingPage(props) {
                     <h1>
                         {username ?
                         `Welcome back ${username}` :
-                        'New here? Create an account!'}
+                        (<>New Here? <Link id='new-person-link' to='/signup'>Create an account!</Link></>)}
                     </h1>
                 </Grid>
             </Grid>
