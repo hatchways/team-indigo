@@ -133,7 +133,7 @@ function Header(props) {
         </Link>
         {
           isLoggedIn ? (
-            <Link className={classes.mobileMenuLink} to='/account'>
+            <Link className={classes.mobileMenuLink} to='/profile'>
               <ListItem button key='Profile'>
                 <ListItemIcon>
                   <AccountCircleIcon />
