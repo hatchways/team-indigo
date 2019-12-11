@@ -131,24 +131,29 @@ function Header(props) {
             <ListItemText primary='Home' />
           </ListItem>
         </Link>
-
-        <Link className={classes.mobileMenuLink} to='/account'>
-          <ListItem button key='Profile'>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary='Profile' />
-          </ListItem>
-        </Link>
-        
-        <Link className={classes.mobileMenuLink} to='/post/create'>
-          <ListItem button key='Create Posts'>
-            <ListItemIcon>
-              <CreateIcon />
-            </ListItemIcon>
-            <ListItemText primary='Create Posts' />
-          </ListItem>
-        </Link>
+        {
+          isLoggedIn ? (
+            <Link className={classes.mobileMenuLink} to='/account'>
+              <ListItem button key='Profile'>
+                <ListItemIcon>
+                  <AccountCircleIcon />
+                </ListItemIcon>
+                <ListItemText primary='Profile' />
+              </ListItem>
+            </Link>
+          ) : ''
+        } {
+          isLoggedIn ? (
+            <Link className={classes.mobileMenuLink} to='/post/create'>
+              <ListItem button key='Create Posts'>
+                <ListItemIcon>
+                  <CreateIcon />
+                </ListItemIcon>
+                <ListItemText primary='Create Posts' />
+              </ListItem>
+            </Link>
+          ) : ''
+        }
       </List>
     </div>
   );
