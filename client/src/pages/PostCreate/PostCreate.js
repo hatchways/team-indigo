@@ -130,7 +130,7 @@ const PostCreate = props => {
                 description,
                 choices: options
             }
-            // console.log(post)
+            console.log(post)
             const result = await postData('/post/id', post, token)
             console.log(result)
         }
