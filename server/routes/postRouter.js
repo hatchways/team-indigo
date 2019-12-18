@@ -38,7 +38,7 @@ router.post("/post/id/:postid/vote", function(req, res, next) {
 
             // Query for post ID
             PostModel.findById(requestedPostID, function(db_err, db_res) {
-                  if (db_err) res.status(400).send({ message : "Bad request" });
+                  if (db_err || db_res == null) res.status(400).send({ message : "Bad request" });
                   else {
                         // Register username and choice to post
                         db_res.vote(username, choice);
@@ -85,6 +85,8 @@ router.post("/post/id", function(req, res, next) {
                       username : req.body.username,
                       choices : req.body.choices,
                       userVotes : [],
+                      visibility : req.body.visibility,
+                      usersAuthorized : [username],
                       dateCreated : new Date(Date.now()).toISOString()};
 
             // Add the post to the post_info collection
@@ -114,6 +116,8 @@ router.post("/post/id", function(req, res, next) {
     }
 });
 
+
+
 /**
 Handle GET request for post access
 Endpoint: .../post/id/#postid
@@ -125,31 +129,36 @@ Endpoint: .../post/id/#postid
 router.get("/post/id/:postid", function(req, res, next) {
     if(mongo.database == null) res.status(500).send({ message : "Error connecting to database" });
     else{
-        var requestedPostID = req.params.postid;
-        var query = { _id : requestedPostID };
+        var username = req.query.username;
 
-        PostModel.findOne(query, function(db_err, db_res) {
-            if (db_err || db_res == null) res.status(400).send({ message : "Invalid request" });
-            else {
-                var owner_username = db_res.username;
-                if(userAuthentication.verifyRequest(req, owner_username)){
-                    var update = {$set: req.body};
-                    AccountModel.findOneAndUpdate(query, update, function(post_err, post_res) {
-                          if (post_err) res.status(422).send( post_err );
-                          else res.status(202).send({
-                              data : post_res,
-                              message : "success"
-                          });
-                    });
-                }
-                else{
-                    res.status(404).send({ message : "Unauthorized request : You are not the owner of this post." });
-                }
+        if(userAuthentication.verifyRequest(req, username)){
+            var requestedPostID = req.params.postid;
+            var query = { _id : requestedPostID };
 
-            }
-        });
+            PostModel.findOne(query, function(db_err, db_res) {
+                if (db_err || db_res == null) res.status(400).send({ message : "Invalid request" });
+                else {
+                    if (db_res.userAllowed(username)){
+                        res.status(201).send({
+                             data : db_res,
+                             message : "success"
+                         });
+                    }
+                    else {
+                        res.status(404).send({ message : "Unauthorized request : user not authorized to access this post" });
+                    }
+                }
+            });
+        }
+        else{
+            res.status(404).send({ message : "Unauthorized request : token invalid with provided username" });
+        }
     }
 });
+
+
+
+
 
 /**
 Handle PUT request for post access
@@ -165,15 +174,86 @@ router.put("/post/id/:postid", function(req, res, next) {
         var requestedPostID = req.params.postid;
         var query = { _id : requestedPostID };
 
-        PostModel.findOne(query, function(db_err, db_res) {
-            if (db_err || db_res == null) res.status(400).send({ message : "Invalid request" });
-            else res.status(201).send({
-                 data : db_res,
-                 message : "success"
-             });
-        });
+        var username = req.body.username;
+
+        if(userAuthentication.verifyRequest(req, username)){
+            PostModel.findOne(query, function(db_err, db_res) {
+                if (db_err || db_res == null) res.status(400).send({ message : "Invalid request" });
+                else {
+                    var owner_username = db_res.username;
+                    if(userAuthentication.verifyRequest(req, owner_username)){
+                        var update = {$set: req.body};
+                        AccountModel.findOneAndUpdate(query, update, function(post_err, post_res) {
+                              if (post_err) res.status(422).send( post_err );
+                              else res.status(202).send({
+                                  data : post_res,
+                                  message : "success"
+                              });
+                        });
+                    }
+                    else{
+                        res.status(404).send({ message : "Unauthorized request : You are not the owner of this post." });
+                    }
+
+                }
+            });
+        }
+        else{
+            res.status(404).send({ message : "Unauthorized request : token invalid with provided username" });
+        }
     }
+
 });
+
+
+/**
+Handle PUT request for adding authorized users
+Endpoint: .../post/id/#postid/authorize-user
+
+@return {data : null, message : "success"} if retrieved post successfully.
+        HTTP Response Code 500 if error connecting to MongoDB
+        HTTP Response Code 400 if bad request
+*/
+router.put("/post/id/:postid/authorize-user", function(req, res, next) {
+    if(mongo.database == null) res.status(500).send({ message : "Error connecting to database" });
+    else{
+        var requestedPostID = req.params.postid;
+        var query = { _id : requestedPostID };
+
+        var username = req.body.username;
+        var usernameToAdd = req.body.usernameToAdd;
+
+        if(userAuthentication.verifyRequest(req, username)){
+            PostModel.findOne(query, function(db_err, db_res) {
+                if (db_err || db_res == null) res.status(400).send({ message : "Invalid request" });
+                else {
+                    if(db_res.username === username){
+                        db_res.addAuthorizedUser(usernameToAdd);
+                        db_res.save(function(post_err, post_res) {
+                              if (post_err || post_res == null) res.status(400).send({ message : "Invalid request" });
+                              else {
+                                    res.status(201).send({
+                                          data : post_res,
+                                          message : "success"
+                                    });
+                              }
+                        });
+                    }
+                    else{
+                        res.status(404).send({ message : "Unauthorized request : You are not the owner of post." });
+                    }
+
+                }
+            });
+        }
+        else{
+            res.status(404).send({ message : "Unauthorized request : token invalid with provided username" });
+        }
+    }
+
+});
+
+
 
 /**
 Handle GET request for post search

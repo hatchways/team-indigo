@@ -18,7 +18,6 @@ function generateToken(username) {
     var payload = {
         account : username
     };
-    console.log(username);
     return jwt.sign(payload, privateKey, generateSignAndVerifyOptions(username));
 }
 
@@ -33,6 +32,7 @@ function generateSignAndVerifyOptions(username){
 }
 
 function verifyToken(username, token) {
+    if (!username) return false;
     return jwt.verify(token, publicKey, generateSignAndVerifyOptions(username));
 }
 
