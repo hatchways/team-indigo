@@ -10,7 +10,7 @@ export const postData = async (url, data, token='') => {
       },
       redirect: 'follow', // manual, *follow, error
       referrer: 'no-referrer', // no-referrer, *client
-      body: data, // body data type must match "Content-Type" header
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
   })
     
   return await response.json() // parses JSON response into native JavaScript objects
