@@ -90,7 +90,7 @@ router.post("/post/id", function(req, res, next) {
                       dateCreated : new Date(Date.now()).toISOString()};
 
             // Add the post to the post_info collection
-            newPost = new PostModel(entry);
+            var newPost = new PostModel(entry);
             newPost.init_choices();
             newPost.save(function(db_err, db_res) {
                   if (db_err) res.status(400).send({ message : "Invalid request" });
