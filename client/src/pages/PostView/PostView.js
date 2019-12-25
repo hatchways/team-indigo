@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Avatar, Button, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, TextField } from '@material-ui/core'
 
+import SideBar from './SideBar'
+
 import profileImage from '../../assets/images/profile-pic-placeholder.png'
 
 // user data
@@ -75,31 +77,11 @@ const PostView = props => {
     return (
         <Container className={classes.root} maxWidth='lg'>
             <Grid container spacing={2}>
-                <Grid item xs={3}>
-                    {users.map(user => {
-                        return (
-                            <Grid container
-                            key={user.username} >
-                                <Grid item xs={6} sm={5} md={3}>
-                                    <Avatar
-                                    alt="Profile Pic Placeholder"
-                                    src={profileImage}
-                                    className={classes.avatarSidebar} />
-                                </Grid>
-                                <Grid item xs={6} sm={7} md={9}>
-                                    <Grid container>
-                                        <Grid item xs={12}>
-                                            <label>{user.username}</label>
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <label style={{fontWeight: 20}}>{user.answer}</label>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        )
-                    })}
-                </Grid>
+                <SideBar
+                users={users}
+                profileImage={profileImage}
+                classes={classes} />
+
                 <Grid item xs={9}>
                     <Grid container>
                         <Grid item xs={7} sm={6} md={4} lg={3}>
