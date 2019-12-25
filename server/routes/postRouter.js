@@ -34,7 +34,6 @@ router.post("/post/id/:postid/vote", function(req, res, next) {
         if(userAuthentication.verifyRequest(req, username)){
             var requestedPostID = req.params.postid;
             var choice = req.body.choice;
-            var query = { _id : ObjectId(requestedPostID) };
 
             // Query for post ID
             PostModel.findById(requestedPostID, function(db_err, db_res) {

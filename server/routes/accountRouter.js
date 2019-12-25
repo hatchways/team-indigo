@@ -25,12 +25,11 @@ Authorization : Bearer <AUTHORIZATION TOKEN>
 router.get("/account/u/:username", function(req, res, next) {
     if(mongo.database == null) res.status(500).send({ message : "error connecting to database..." });
     else{
-        var requestedUsername = req.params.username;
-        var query = { username : requestedUsername };
-        var databaseCursor = AccountModel.findOne(query);
+        var username = req.params.username;
+        var databaseCursor = AccountModel.findOne({ username });
 
         // if the user is authorized, do not hide information
-        if(userAuthentication.verifyRequest(req, requestedUsername)){
+        if(userAuthentication.verifyRequest(req, username)){
             databaseCursor = databaseCursor.select('+password').select('+emailAddress');
         }
         databaseCursor.exec( function(db_err, db_res) {
@@ -57,14 +56,13 @@ Authorization : Bearer <AUTHORIZATION TOKEN>
 router.put("/account/u/:username", function(req, res, next) {
     if(mongo.database == null) res.status(500).send({ message : "error connecting to database..." });
     else{
-        var requestedUsername = req.params.username;
+        var username = req.params.username;
 
         // if the user is authorized, allow update
-        if(userAuthentication.verifyRequest(req, requestedUsername)){
-            var query = { username : requestedUsername };
+        if(userAuthentication.verifyRequest(req, username)){
             var update = {$set: req.body};
 
-            AccountModel.findOneAndUpdate(query, update, function(db_err, db_res) {
+            AccountModel.findOneAndUpdate({ username }, update, function(db_err, db_res) {
                   if (db_err) res.status(422).send( db_err );
                   else res.status(202).send({
                       data : db_res,
@@ -127,16 +125,17 @@ Endpoint: .../account/signin
 router.post("/account/signin", function(req, res, next) {
     if(mongo.database == null) res.status(500).send({ message : "error connecting to database" });
     else{
-        var signInUsername = req.body.username;
-        var signInPassword = req.body.password;
-        var query = { username : signInUsername };
+        var username = req.body.username;
+        var password = req.body.password;
 
-        AccountModel.findOne(query).select('+password').exec(function(db_err, db_res) {
+        AccountModel.findOne({ username })
+        .select('+password')
+        .exec(function(db_err, db_res) {
               if (db_err) res.status(400).send({ message : "bad request" });
               else {
-                  if(db_res && db_res.password === signInPassword){
+                  if(db_res && db_res.password === password){
                       // Correct password
-                      res.status(200).send({token : userAuthentication.generateToken(signInUsername),
+                      res.status(200).send({token : userAuthentication.generateToken(username),
                                             message : "success"});
                   }
                   else {
