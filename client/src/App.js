@@ -12,7 +12,7 @@ import Header from './components/Header'
 import ProfilePage from './pages/ProfilePage'
 import LandingPage from './pages/LandingPage'
 import PostCreate from "./pages/PostCreate/PostCreate";
-import PostView from "./pages/PostView/PostView";
+import PostView from "./pages/PostView";
 import SignUp from './pages/SignUp/SignUp';
 import Login from "./pages/Login/Login";
 
