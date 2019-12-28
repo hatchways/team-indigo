@@ -4,8 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Avatar, Button, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, TextField } from '@material-ui/core'
 
 import SideBar from './SideBar'
+import PostInfo from './PostInfo'
+import PostOptions from './PostOptions'
+import CommentField from './CommentField'
+import VoteButton from './VoteButton'
 
 import profileImage from '../../assets/images/profile-pic-placeholder.png'
+
 
 // user data
 const users=[
@@ -24,7 +29,7 @@ const tags=[
 ]
 
 // poll option data
-const options=[
+const choices=[
     'League',
     'Overwatch'
 ]
@@ -83,78 +88,25 @@ const PostView = props => {
                 classes={classes} />
 
                 <Grid item xs={9}>
-                    <Grid container>
-                        <Grid item xs={7} sm={6} md={4} lg={3}>
-                            <Avatar alt="Profile Pic Placeholder" src={profileImage} className={classes.avatar} />
-                        </Grid>
-                        <Grid item xs={5} sm={6} md={8} lg={9}>
-                            <div id='tags'>
-                                <label>Tags</label>
-                                {tags.map(el => {
-                                    return (
-                                        <Button
-                                        key={el}
-                                        value='tag'
-                                        className={classes.button}
-                                        variant="contained"
-                                        color="primary"
-                                        size="medium" >
-                                            {el}
-                                        </Button>
-                                    )
-                                })}
-                            </div>
-                            <div id='question'>
-                                <h2>Which game is better?</h2>
-                            </div>
-                            <div id='description'>
-                                <h3>Let's vote on which game is more popular!</h3>
-                            </div>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <FormControl component="fieldset" className={classes.formControl}>
-                                <FormLabel component="legend">Voting options</FormLabel>
-                                <RadioGroup aria-label="voting-option" name="option" value={option} onChange={handleChange}>
-                                    {options.map(el => {
-                                        const key=el.toLowerCase()
-                                        return (
-                                            <FormControlLabel
-                                            key={key}
-                                            value={key}
-                                            control={<Radio />}
-                                            label={el} />
-                                        )
-                                    })}
-                                </RadioGroup>
-                            </FormControl>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs={8}>
-                            <TextField
-                            id="comment"
-                            name="comment"
-                            value={comment}
-                            onChange={handleChange}
-                            label="Write a comment"
-                            className={classes.textField}
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth={true} />
-                        </Grid>
-                    </Grid>
-                    <Grid container >
-                    <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        onClick={handleVote}>
-                            Vote
-                        </Button>
-                    </Grid>
+                    <PostInfo
+                    classes={classes}
+                    profileImage={profileImage}
+                    tags={tags} />
+
+                    <PostOptions
+                    classes={classes}
+                    option={option}
+                    handleChange={handleChange}
+                    choices={choices} />
+
+                    <CommentField
+                    classes={classes}
+                    comment={comment}
+                    handleChange={handleChange} />
+
+                    <VoteButton
+                    classes={classes}
+                    handleVote={handleVote} />
                 </Grid>
             </Grid>
         </Container>
