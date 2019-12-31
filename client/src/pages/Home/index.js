@@ -34,12 +34,13 @@ function Home(props) {
         console.log(responses)
     }
 
-    let posts
+    // let posts
     if (username) {
-        posts = getPosts()
+        // posts = getPosts()
+        getPosts()
     }
 
-    if(posts) console.log(posts)
+    // if(posts) console.log(posts)
 
     return (
         <Container>
