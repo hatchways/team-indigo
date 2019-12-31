@@ -1,7 +1,7 @@
 import './PostView.css'
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Avatar, Button, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, TextField } from '@material-ui/core'
+import { Container, Grid } from '@material-ui/core'
 
 import SideBar from './SideBar'
 import PostInfo from './PostInfo'

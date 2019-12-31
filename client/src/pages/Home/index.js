@@ -1,13 +1,13 @@
-import './LandingPage.css'
+import './Home.css'
 
 import React from 'react';
 import { Link } from 'react-router-dom'
 
 import { Container, Grid } from '@material-ui/core';
 
-import { getData } from '../utilities/API'
+import { getData } from '../../utilities/API'
 
-function LandingPage(props) {
+function Home(props) {
 
     let username, token
     if (window.sessionStorage.username) {
@@ -38,6 +38,8 @@ function LandingPage(props) {
     if (username) {
         posts = getPosts()
     }
+
+    if(posts) console.log(posts)
 
     return (
         <Container>
@@ -88,4 +90,4 @@ function LandingPage(props) {
     );
 }
 
-export default LandingPage;
+export default Home;

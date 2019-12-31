@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom'
 import { Container, Grid, Avatar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import profileImage from '../assets/images/profile-pic-placeholder.png'
+import profileImage from '../../assets/images/profile-pic-placeholder.png'
 
-import { getData } from '../utilities/API'
+import { getData } from '../../utilities/API'
 
 const useStyles = makeStyles(theme => ({
     avatar: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-function ProfilePage(props) {
+function Profile(props) {
     const classes = useStyles()
 
     const redirectToTarget = (path) => {
@@ -64,4 +64,4 @@ function ProfilePage(props) {
     );
 }
 
-export default withRouter(ProfilePage);
+export default withRouter(Profile);
