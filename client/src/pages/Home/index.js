@@ -17,7 +17,6 @@ function Home(props) {
 
     const getPosts = async () => {
         const response = await getData(`/account/u/${username}`, token)
-        console.log(response)
 
         const postIds = response.data.posts
         // create an array of promises
@@ -26,21 +25,17 @@ function Home(props) {
         for (let i=0; i < postIds.length; i++) {
             const id = postIds[i]
             promises.push(
-                getData(`post/id/${id}`, token)
+                getData(`post/id/${id}?username=${username}`, token)
             )
         }
 
-        const responses = await Promise.all(promises)
-        console.log(responses)
+        return await Promise.all(promises)
     }
 
-    // let posts
+    let posts
     if (username) {
-        // posts = getPosts()
-        getPosts()
+        posts = getPosts()
     }
-
-    // if(posts) console.log(posts)
 
     return (
         <Container>
@@ -59,7 +54,7 @@ function Home(props) {
                         <h1>Your Posts</h1>
                     </Grid>
                 
-                    {/* {posts.map(post => {
+                    {Object.entries(posts).map(post => {
                         return (
                             <Grid item xs={12}>
                                 <h2>{post.question}</h2>
@@ -70,7 +65,7 @@ function Home(props) {
 
                             </Grid>
                         )}
-                    )}*/}
+                    )}
                 </Grid> ) : '' 
             }
             
