@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, TextField, Button } from '@material-ui/core'
 import { postData } from '../../utilities/API'
 
+import LoginField from './LoginField';
+
 const useStyles = makeStyles(theme => ({
     textField: {
       marginLeft: theme.spacing(1),
@@ -103,31 +105,27 @@ function Login(props) {
                 <h1>Login to Tindigo!</h1>
             </Grid>
             
-            <Grid container>
-                <TextField
-                id='user-name'
-                label='User Name'
-                name='username'
-                value={username}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                className={classes.textField}
-                helperText={shouldMarkError('username') ? 'please provide a user name' : ''}
-                margin='normal' />
-            </Grid>
+            <LoginField
+            id='user-name'
+            classes={classes}
+            label='User Name'
+            name='username'
+            value={username}
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            shouldMarkError={shouldMarkError}
+            message='please provide a user name' />
 
-            <Grid container>
-                <TextField
-                id='password'
-                label='Password'
-                name='password'
-                value={password}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                className={classes.textField}
-                helperText={shouldMarkError('password') ? 'please provide a password' : ''}
-                margin='normal' />
-            </Grid>
+            <LoginField
+            id='password'
+            classes={classes}
+            label='Password'
+            name='password'
+            value={password}
+            handleBlur={handleBlur}
+            handleChange={handleChange}
+            shouldMarkError={shouldMarkError}
+            message='please provide a password' />
 
             <Grid container>
                 <Button
